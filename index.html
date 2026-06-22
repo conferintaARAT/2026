@@ -140,9 +140,9 @@
     }
 
     #acasa       { background: var(--turquoise);    color: var(--purple-brown); padding: 0; height: 100vh; height: 100lvh; min-height: unset; display: block; }
-    #bio         { background: var(--purple-brown); color: var(--egg-shell); }
+    #form         { background: var(--purple-brown); color: var(--egg-shell); }
     #projects    { background: var(--egg-shell);    color: var(--purple-brown); }
-    #echipa      { background: var(--dark-peach);   color: var(--purple-brown); }
+    #echipa      { background: var(--turquoise);   color: var(--purple-brown); }
     #workshopuri { background: var(--home-bg);      color: var(--egg-shell); }
 
     /* ─── DOTS ─── */
@@ -151,7 +151,7 @@
       position         : absolute;
       top              : 0;
       bottom           : 0;
-      width            : 2px;
+      width            : 3px;
       opacity          : .35;
       pointer-events   : none;
       background-image : linear-gradient(var(--dark-peach) 20%, transparent 0);
@@ -163,21 +163,21 @@
     #acasa .dots:before  { left: 18%; }
     #acasa .dots:after   { left: 82%; }
 
-    #bio .dots:before    { left: 10%; }
-    #bio .dots:after     { right: 10%; }
-    #bio .dots:before, #bio .dots:after { background-image: linear-gradient(var(--egg-shell) 20%, transparent 0); }
+    #form .dots:before    { left: 10%; }
+    #form .dots:after     { right: 10%; }
+    #form .dots:before, #form .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     #projects .dots:before  { left: 8%; }
     #projects .dots:after   { right: 8%; }
-    #projects .dots:before, #projects .dots:after { background-image: linear-gradient(var(--purple-brown) 20%, transparent 0); }
+    #projects .dots:before, #projects .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     #echipa .dots:before  { left: 12%; }
     #echipa .dots:after   { right: 12%; }
-    #echipa .dots:before, #echipa .dots:after { background-image: linear-gradient(var(--purple-brown) 20%, transparent 0); }
+    #echipa .dots:before, #echipa .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     #workshopuri .dots:before  { left: 14%; }
     #workshopuri .dots:after   { right: 14%; }
-    #workshopuri .dots:before, #workshopuri .dots:after { background-image: linear-gradient(var(--egg-shell) 20%, transparent 0); }
+    #workshopuri .dots:before, #workshopuri .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     @keyframes movebg {
       from { transform: translate3d(0,0,0); }
@@ -262,7 +262,7 @@
     }
 
     #acasa .hero-title, #slide2 .hero-title { background-color: var(--purple-brown); }
-    #bio .hero-title         { background-color: var(--dark-peach); }
+    #form .hero-title         { background-color: var(--dark-peach); }
     #projects .hero-title    { background-color: var(--purple-brown); }
     #echipa .hero-title      { background-color: var(--purple-brown); }
     #workshopuri .hero-title { background-color: var(--dark-peach); }
@@ -302,10 +302,10 @@
       border-left : 4px solid var(--dark-peach);
     }
 
-    #echipa .project-card { border-left-color: var(--turquoise); }
+    #echipa .project-card { border-left-color: var(--dark-peach); }
     #echipa .project-card h2, #echipa .project-card h3 { color: var(--egg-shell); }
-    #echipa .dropup-menu { border-left-color: var(--turquoise); }
-    #echipa .dropup-arrow { color: var(--turquoise); }
+    #echipa .dropup-menu { border-left-color: var(--dark-peach); }
+    #echipa .dropup-arrow { color: var(--dark-peach); }
     #workshopuri .project-card { border-left-color: var(--dark-peach); }
 
     .project-card h3 {
@@ -561,7 +561,7 @@
       <span class="nav-full" data-lang="en">Home</span>
 <!--      <span class="nav-roman">I</span>-->
     </a>
-    <a href="#bio">
+    <a href="#form">
       <span class="nav-full" data-lang="ro">Înscriere</span>
       <span class="nav-full" data-lang="en">Register</span>
 <!--      <span class="nav-roman">II</span>-->
@@ -625,18 +625,18 @@
         <p data-lang="ro">Vă invităm să reflectăm împreună: cum rămânem noi înșine păstrând legăturile, și cum onorăm rădăcinile fără să ne pierdem pe noi?</p>
         <p data-lang="en">We invite you to reflect together: how do we remain ourselves while keeping our bonds, and how do we honour our roots without losing ourselves?</p>
       </div>
-      <a href="#bio" style="position:absolute; bottom:calc(var(--border-width) + 1.5rem); left:50%; transform:translateX(-50%); opacity:.5; animation:bounce-down .8s ease-in-out infinite alternate; color:var(--purple-brown);">
+      <a href="#form" style="position:absolute; bottom:calc(var(--border-width) + 1.5rem); left:50%; transform:translateX(-50%); opacity:.5; animation:bounce-down .8s ease-in-out infinite alternate; color:var(--purple-brown);">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:28px;height:28px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </a>
     </div>
 
-    <a href="#bio" style="position:absolute; bottom:calc(var(--border-width) + 1.5rem); left:50%; transform:translateX(-50%); opacity:.5; animation:bounce-down .8s ease-in-out infinite alternate; color:var(--purple-brown);">
+    <a href="#form" style="position:absolute; bottom:calc(var(--border-width) + 1.5rem); left:50%; transform:translateX(-50%); opacity:.5; animation:bounce-down .8s ease-in-out infinite alternate; color:var(--purple-brown);">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:28px;height:28px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </a>
   </section>
 
   <!-- ══ ÎNSCRIERE ══ -->
-  <section id="bio">
+  <section id="form">
     <div class="dots"></div>
     <a href="#acasa" class="scroll-up">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
@@ -666,7 +666,7 @@
   <!-- ══ PROGRAM ══ -->
   <section id="projects">
     <div class="dots"></div>
-    <a href="#bio" class="scroll-up" style="color:var(--purple-brown);">
+    <a href="#form" class="scroll-up" style="color:var(--purple-brown);">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
     </a>
     <div class="section-content reveal">
@@ -1083,6 +1083,18 @@
             </ul>
           </div>
         </div>
+<!--        <div class="project-card dropup">
+          <div class="dropup-trigger">
+            <h2>S — Z</h2>
+            <span class="dropup-arrow">&#8963;</span>
+          </div>
+          <div class="dropup-menu">
+            <ul>
+
+            </ul>
+          </div>
+        </div>-->
+
       </div>
     </div>
     <a href="#workshopuri" class="scroll-down">
@@ -1259,9 +1271,9 @@ By integrating systemic research with contemporary TA, this seminar offers insig
 
     const borderColors = {
       acasa       : '#e8e4d2',
-      bio         : '#e26961',
-      projects    : '#231f20',
-      echipa      : '#231f20',
+      form         : '#e8e4d2',
+      program    : '#e8e4d2',
+      echipa      : '#e8e4d2',
       workshopuri : '#e8e4d2',
     };
 
