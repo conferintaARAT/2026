@@ -536,6 +536,23 @@
     [data-lang]:not(span):not(a) { display: none; }
     body.lang-ro [data-lang="ro"]:not(span):not(a) { display: revert; }
     body.lang-en [data-lang="en"]:not(span):not(a) { display: revert; }
+
+    .static-menu {
+      position    : static !important;
+      max-height  : none !important;
+      overflow    : visible !important;
+      opacity     : 1 !important;
+      padding     : .5rem 1.5rem !important;
+      background  : var(--purple-brown);
+      border-left : 4px solid var(--dark-peach);
+    }
+
+    .team-card {
+      padding     : 0 !important;
+      border-left : none !important;
+    }
+
+    .person-card { cursor: pointer; }
   </style>
 </head>
 <body class="lang-ro">
@@ -1014,118 +1031,100 @@
 
       <div class="projects-grid">
 
-        <div class="project-card dropup">
-          <div class="dropup-trigger">
-            <h2>A — I</h2>
-            <span class="dropup-arrow">&#8963;</span>
-          </div>
-          <div class="dropup-menu">
-            <ul>
-              <li data-title-ro="Bălescu Bogdan - Psihoterapeut practicant sub supervizare în AT" data-title-en="Bălescu Bogdan - Supervised practicing psychotherapist in TA"
-                  data-desc-ro=" - Contracte & Finanțare -
-                  Contracte traineri, contracte voluntariat, cazare traineri și sponsorizări. Fără contracte valide și finanțare, evenimentul nu se poate desfășura legal."
-                  data-desc-en="- Contracts & Financing -
-                  Trainer contracts, volunteer contracts, trainer accommodation and sponsorships. Without valid contracts and funding, the event cannot be held legally.">
-                Bălescu Bogdan
-              </li>
-              <li data-title-ro="Cupsa Alexandra" data-title-en="Cupsa Alexandra"
-                  data-desc-ro=" - Grafică -
-                  Grafică eveniment: logo și afișe conferință. Prima impresie vizuală – esențială pentru promovare și identitate."
-                  data-desc-en="- Graphics -
-                  Event graphics: logo and conference posters. First visual impression – essential for promotion and identity.">
-                Cupsa Alexandra
-              </li>
-<!--              <li data-title-ro="Cupsa Ioana - PTSTA-P" data-title-en="Cupsa Ioana - PTSTA-P"
-                  data-desc-ro=" Descriere"
-                  data-desc-en="Description">
-                Cupsa Ioana
-              </li>-->
-              <li data-title-ro="David Anca - PTSTA-P" data-title-en="David Anca - PTSTA-P"
-                  data-desc-ro="- Coordonatoare -
-                  Contact traineri pre/post conferință, contact keynote speech, stabilire program și prețuri, analiza rezumatelor pentru workshop-uri, alegere și contractare spațiu. Rolul central de coordonare al evenimentului."
-                  data-desc-en="- Coordinator -
-                  Pre/post conference trainer contact, keynote speech contact, program and pricing establishment, workshop abstract analysis, space selection and contracting. Central event coordination role.">
-                David Anca
-              </li>
-              <li data-title-ro="Duma Ioana - CTA-P" data-title-en="Duma Ioana - CTA-P"
-                  data-desc-ro="- Spațiu -
-                  Alegere și contractare spațiu alături de Anca D. Fără un spațiu adecvat rezervat la timp, conferința nu poate avea loc."
-                  data-desc-en="- Space -
-                  Choosing and contracting space with Anca D. Without an appropriate space reserved in time, the conference cannot take place.">
-                Duma Ioana
-              </li>
-              <li data-title-ro="Gruicin Alexandra - Psiholog organizațional și coach" data-title-en="Gruicin Alexandra- Organisational psychologist and coach"
-                  data-desc-ro="- Logistică Materiale -
-                  Materiale promoționale (mape, sacoșe, pixuri etc.) și ecusoane. Asigură identitatea vizuală fizică și experiența participanților la check-in."
-                  data-desc-en="- Materials Logistics -
-                  Promotional materials (folders, bags, pens, etc.) and badges. Ensures the physical visual identity and the experience of participants at check-in.">
-                Gruicin Alexandra
-              </li>
-              <li data-title-ro="Horvath Liliana - PTSTA-P" data-title-en="Horvath Liliana - PTSTA-P"
-                  data-desc-ro="-Premii-
-                  Premii ARAT. Recunoașterea excelenței academice și profesionale – contribuie la prestigiul evenimentului."
-                  data-desc-en="-Awards-
-                  ARAT Awards. Recognition of academic and professional excellence – contributes to the prestige of the event.">
-                Horvath Liliana
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="project-card dropup">
-          <div class="dropup-trigger">
-            <h2>J — T</h2>
-            <span class="dropup-arrow">&#8963;</span>
-          </div>
-          <div class="dropup-menu">
-            <ul>
-
-              <li data-title-ro="Maftei Alexandra - PTSTA-P" data-title-en="Maftei Alexandra - PTSTA-P"
-                  data-desc-ro="-Acreditări-
-                  Obținere avizare, credite și diplome ARAT și COPSi, alături de Alina R. Fără acreditări, valoarea profesională a conferinței este redusă semnificativ."
-                  data-desc-en="-Accreditations-
-                  Obtains ARAT and COPSI endorsement, credits and diplomas, alongside Alina R. Without accreditation, the professional value of the conference is significantly reduced.">
-                Maftei Alexandra
-              </li>
-              <li data-title-ro="Martinaș-Gabor Mihai" data-title-en="Martinaș-Gabor Mihai"
-                  data-desc-ro="-Digital-
-                  Construirea paginii web, postarea conferinței și crearea formularului de înscriere electronic. Punctul de intrare pentru toți participanții."
-                  data-desc-en="-Digital-
-                  Building the website, posting the conference and creating the electronic registration form. The entry point for all participants.">
-                Martinaș-Gabor Mihai
-              </li>
-              <li data-title-ro="Rus Alina - TSTA-P" data-title-en="Rus Alina - TSTA-P"
-                  data-desc-ro="-Acreditări & Party-
-                  Co-responsabilă acreditări și organizarea/contractarea/negocierea cu chef-ul pentru catering. Rol dublu: latura academică și cea logistică."
-                  data-desc-en="-Accreditations & Party-
-                  Co-responsible for accreditations and organizing/contracting/negotiating with the chef for catering. Dual role: academic and logistical side.">
-                Rus Alina
-              </li>
-              <li data-title-ro="Tiurean Anca - MA, PFS (Specialist in psihoterapie familiala sistemica)"
-                  data-title-en="Tiurean Anca - MA, PFS (Specialist in systemic family psychotherapy)"
-                  data-desc-ro="-Marketing & Conținut-
-                  Marketing pe rețele sociale și solicitarea articolelor științifice de la traineri. Asigură vizibilitatea evenimentului și calitatea conținutului academic."
-                  data-desc-en="-Marketing & Content-
-                  Social media marketing and gathering of scientific articles from trainers. Ensures event visibility and quality of academic content.">
-                Tiurean Anca
-              </li>
-            </ul>
-          </div>
-        </div>
-<!--        <div class="project-card dropup">
-          <div class="dropup-trigger">
-            <h2>S — Z</h2>
-            <span class="dropup-arrow">&#8963;</span>
-          </div>
-          <div class="dropup-menu">
-            <ul>
-
-            </ul>
-          </div>
-        </div>-->
-
+      <div class="project-card person-card"
+          data-title-ro="Bălescu Bogdan - Psihoterapeut practicant sub supervizare în AT" data-title-en="Bălescu Bogdan - Supervised practicing psychotherapist in TA"
+          data-desc-ro=" - Contracte & Finanțare -
+          Contracte traineri, contracte voluntariat, cazare traineri și sponsorizări. Fără contracte valide și finanțare, evenimentul nu se poate desfășura legal."
+          data-desc-en="- Contracts & Financing -
+          Trainer contracts, volunteer contracts, trainer accommodation and sponsorships. Without valid contracts and funding, the event cannot be held legally.">
+        <h3>Bălescu Bogdan</h3>
       </div>
+
+      <div class="project-card person-card"
+          data-title-ro="Cupsa Alexandra" data-title-en="Cupsa Alexandra"
+          data-desc-ro=" - Grafică -
+          Grafică eveniment: logo și afișe conferință. Prima impresie vizuală – esențială pentru promovare și identitate."
+          data-desc-en="- Graphics -
+          Event graphics: logo and conference posters. First visual impression – essential for promotion and identity.">
+        <h3>Cupsa Alexandra</h3>
+      </div>
+
+      <div class="project-card person-card"
+          data-title-ro="David Anca - PTSTA-P" data-title-en="David Anca - PTSTA-P"
+          data-desc-ro="- Coordonatoare -
+          Contact traineri pre/post conferință, contact keynote speech, stabilire program și prețuri, analiza rezumatelor pentru workshop-uri, alegere și contractare spațiu. Rolul central de coordonare al evenimentului."
+          data-desc-en="- Coordinator -
+          Pre/post conference trainer contact, keynote speech contact, program and pricing establishment, workshop abstract analysis, space selection and contracting. Central event coordination role.">
+        <h3>David Anca</h3>
+      </div>
+
+      <div class="project-card person-card"
+          data-title-ro="Duma Ioana - CTA-P" data-title-en="Duma Ioana - CTA-P"
+          data-desc-ro="- Spațiu -
+          Alegere și contractare spațiu alături de Anca D. Fără un spațiu adecvat rezervat la timp, conferința nu poate avea loc."
+          data-desc-en="- Space -
+          Choosing and contracting space with Anca D. Without an appropriate space reserved in time, the conference cannot take place.">
+        <h3>Duma Ioana</h3>
+      </div>
+
+      <div class="project-card person-card"
+          data-title-ro="Gruicin Alexandra - Psiholog organizațional și coach" data-title-en="Gruicin Alexandra- Organisational psychologist and coach"
+          data-desc-ro="- Logistică Materiale -
+          Materiale promoționale (mape, sacoșe, pixuri etc.) și ecusoane. Asigură identitatea vizuală fizică și experiența participanților la check-in."
+          data-desc-en="- Materials Logistics -
+          Promotional materials (folders, bags, pens, etc.) and badges. Ensures the physical visual identity and the experience of participants at check-in.">
+        <h3>Gruicin Alexandra</h3>
+      </div>
+
+      <div class="project-card person-card"
+          data-title-ro="Horvath Liliana - PTSTA-P" data-title-en="Horvath Liliana - PTSTA-P"
+          data-desc-ro="-Premii-
+          Premii ARAT. Recunoașterea excelenței academice și profesionale – contribuie la prestigiul evenimentului."
+          data-desc-en="-Awards-
+          ARAT Awards. Recognition of academic and professional excellence – contributes to the prestige of the event.">
+        <h3>Horvath Liliana</h3>
+      </div>
+
+      <div class="project-card person-card"
+          data-title-ro="Maftei Alexandra - PTSTA-P" data-title-en="Maftei Alexandra - PTSTA-P"
+          data-desc-ro="-Acreditări-
+          Obținere avizare, credite și diplome ARAT și COPSi, alături de Alina R. Fără acreditări, valoarea profesională a conferinței este redusă semnificativ."
+          data-desc-en="-Accreditations-
+          Obtains ARAT and COPSI endorsement, credits and diplomas, alongside Alina R. Without accreditation, the professional value of the conference is significantly reduced.">
+        <h3>Maftei Alexandra</h3>
+      </div>
+
+      <div class="project-card person-card"
+          data-title-ro="Martinaș-Gabor Mihai" data-title-en="Martinaș-Gabor Mihai"
+          data-desc-ro="-Digital-
+          Construirea paginii web, postarea conferinței și crearea formularului de înscriere electronic. Punctul de intrare pentru toți participanții."
+          data-desc-en="-Digital-
+          Building the website, posting the conference and creating the electronic registration form. The entry point for all participants.">
+        <h3>Martinaș-Gabor Mihai</h3>
+      </div>
+
+      <div class="project-card person-card"
+          data-title-ro="Rus Alina - TSTA-P" data-title-en="Rus Alina - TSTA-P"
+          data-desc-ro="-Acreditări & Party-
+          Co-responsabilă acreditări și organizarea/contractarea/negocierea cu chef-ul pentru catering. Rol dublu: latura academică și cea logistică."
+          data-desc-en="-Accreditations & Party-
+          Co-responsible for accreditations and organizing/contracting/negotiating with the chef for catering. Dual role: academic and logistical side.">
+        <h3>Rus Alina</h3>
+      </div>
+
+      <div class="project-card person-card"
+          data-title-ro="Tiurean Anca - MA, PFS (Specialist in psihoterapie familiala sistemica)"
+          data-title-en="Tiurean Anca - MA, PFS (Specialist in systemic family psychotherapy)"
+          data-desc-ro="-Marketing & Conținut-
+          Marketing pe rețele sociale și solicitarea articolelor științifice de la traineri. Asigură vizibilitatea evenimentului și calitatea conținutului academic."
+          data-desc-en="-Marketing & Content-
+          Social media marketing and gathering of scientific articles from trainers. Ensures event visibility and quality of academic content.">
+        <h3>Tiurean Anca</h3>
+      </div>
+
     </div>
+
+
     <a href="#workshopuri" class="scroll-down">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </a>
@@ -1578,6 +1577,24 @@ By integrating systemic research with contemporary TA, this seminar offers insig
       const r = acasaSec.getBoundingClientRect();
       if (r.top > -10 && r.top < 10 && currentSlide !== 0) goToSlide(0);
     }, 200));
+
+    document.querySelectorAll('.person-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const lang = currentLang;
+        popupTitle.textContent = card.dataset['title' + lang.charAt(0).toUpperCase() + lang.slice(1)]
+                                || card.dataset['titleRo'] || '';
+        popupDesc.textContent  = card.dataset['desc' + lang.charAt(0).toUpperCase() + lang.slice(1)]
+                                || card.dataset['descRo'] || '';
+        const box = document.querySelector('.popup-box');
+        box.scrollTop = 0;
+        box.classList.remove('scrolled-to-end');
+        overlay.classList.add('open');
+        requestAnimationFrame(() => {
+          const label = document.querySelector('.popup-scroll-label');
+          label.style.display = box.scrollHeight > box.clientHeight ? 'block' : 'none';
+        });
+      });
+    });
   </script>
 
 </body>
