@@ -427,7 +427,7 @@
       position       : fixed;
       inset          : 0;
       background     : rgba(35,31,32,.75);
-      z-index        : 200;
+      z-index        : 300;
       align-items    : center;
       justify-content: center;
       padding        : 1rem;
@@ -499,6 +499,80 @@
     }
 
     .popup-box.scrolled-to-end .popup-scroll-hint { opacity: 0; }
+
+    /* ─── LIST OVERLAY (fereastra float cu toate itemurile) ─── */
+    .list-overlay {
+      display        : none;
+      position       : fixed;
+      inset          : 0;
+      background     : rgba(35,31,32,.75);
+      z-index        : 200;
+      align-items    : center;
+      justify-content: center;
+      padding        : 1rem;
+    }
+    .list-overlay.open { display: flex; }
+
+    .list-box {
+      background  : var(--purple-brown);
+      color       : var(--egg-shell);
+      border-left : 4px solid var(--dark-peach);
+      padding     : 2rem 2.5rem;
+      max-width   : 560px;
+      width       : 90%;
+      position    : relative;
+      max-height  : 80vh;
+      overflow-y  : auto;
+    }
+
+    @media (max-width: 600px) {
+      .list-box {
+        padding    : 3rem 1.25rem 1.5rem;
+        max-height : 75vh;
+        width      : 95%;
+      }
+    }
+
+    .list-box h4 {
+      font-family   : "Anton", sans-serif;
+      font-size     : 1.3rem;
+      font-weight   : 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom : 1rem;
+      color         : var(--turquoise);
+      padding-right : 1.5rem;
+    }
+
+    .list-box ul { list-style: none; }
+
+    .list-box ul li {
+      font-size    : .95rem;
+      opacity      : .85;
+      padding      : .6rem 0;
+      border-bottom: 1px solid rgba(232,228,210,.15);
+      cursor       : pointer;
+      transition   : opacity .2s, padding-left .2s;
+    }
+    .list-box ul li:last-child { border-bottom: none; }
+    .list-box ul li:hover { opacity: 1; padding-left: .4rem; color: var(--turquoise); }
+
+    .list-box ul li::after {
+      content: '›';
+      float: right;
+      opacity: .4;
+      font-size: 2rem;
+      transform: translateY(-2px);
+    }
+
+    @keyframes listItemPop {
+      0%   { opacity: 0; transform: scale(.8) translateY(8px); }
+      60%  { opacity: 1; transform: scale(1.05) translateY(0); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .list-box ul li.pop-in {
+      animation: listItemPop .4s cubic-bezier(.34,1.56,.64,1) both;
+    }
 
     /* ─── INDICATOR SLIDE ─── */
     .slide-dots {
@@ -726,7 +800,7 @@
             <h3 data-lang="en">Friday — Day I</h3>
             <p data-lang="ro">Citește aici</p>
             <p data-lang="en">Read here</p>
-            <span class="dropup-arrow">&#8963;</span>
+
           </div>
           <div class="dropup-menu">
             <ul>
@@ -739,6 +813,8 @@
                   data-desc-ro="Locația: sala mare" data-desc-en="Location: aula magna">
                 <span data-lang="ro">09:30–11:00 — Minți în comunitate: Pierdute și Regăsite</span>
                 <span data-lang="en">10:00–11:00 — Minds in community: loss and recovery</span>
+<!--                <h6 data-lang="ro">- detalii aici -</h6>
+                <h6 data-lang="en">- details -</h6>-->
               </li>
               <li data-title-ro="Pauza" data-title-en="Break"
                   data-desc-ro="Locația: locatia setata" data-desc-en="Location: set location">
@@ -773,13 +849,14 @@
             </ul>
           </div>
         </div>
+
         <div class="project-card dropup">
           <div class="dropup-trigger">
             <h3 data-lang="ro">Sâmbătă — Ziua II</h3>
             <h3 data-lang="en">Saturday — Day II</h3>
             <p data-lang="ro">Citește aici</p>
             <p data-lang="en">Read here</p>
-            <span class="dropup-arrow">&#8963;</span>
+
           </div>
           <div class="dropup-menu">
             <ul>
@@ -899,7 +976,7 @@
             <h3 data-lang="en">Sunday — Day III</h3>
             <p data-lang="ro">Citește aici</p>
             <p data-lang="en">Read here</p>
-            <span class="dropup-arrow">&#8963;</span>
+
           </div>
           <div class="dropup-menu">
             <ul>
@@ -993,7 +1070,7 @@
             <h3 data-lang="en">Monday — Day IV</h3>
             <p data-lang="ro">Citește aici</p>
             <p data-lang="en">Read here</p>
-            <span class="dropup-arrow">&#8963;</span>
+
           </div>
           <div class="dropup-menu">
             <ul>
@@ -1259,15 +1336,15 @@
       <div class="projects-grid">
 
 
-
         <div class="project-card person-card"
-          data-title-ro="Minți în comunitate: pierdere și regăsire" data-title-en="Minds in community: loss and recovery"
+          data-title-ro="Minți în comunitate: pierdere și regăsire"
+          data-title-en="Minds in community: loss and recovery"
           data-desc-ro="Intenția noastră în acest workshop este aceea de a adresa relația complexă dintre minte și comunitate, precum și provocările pe care le pot întâlni mințile noastre pe măsură ce încep să facă parte din țesătura unei comunități.
 Se vor pierde definitiv și vor ceda în fața experienței opresive sau vor putea fi regăsite, transformate și îmbogățite?
 Cum vor continua mințile noastre să își folosească capacitatea de reflecție și să păstreze vii resursele necesare pentru a continua să fie curioase în loc să recurgă la idealizare, devalorizare sau alte forme de gândire care apar în absența unei reglări emoționale suficient de bune?
 Cum pot deveni comunitățile locuri de încredere care încurajează libertatea și în care mințile noastre își pot găsi sălaș?
-  Având la bază experiența noastră clinică și cadre teoretice complementare (W.F. Cornell, M. Landaiche, G. Petriglieri, S. Peck), vom explora alături de participanți posibilitatea de a imagina patru stadii de dezvoltare a acestei relaționări complexe dintre minte și comunitate: apartenența prematură la o pseudo-comunitate, deziluzia, dezorganizarea și revendicarea.
-  Vom include în lucrul nostru împreună prezentări teoretice, discuții în grupuri mici și studii de caz. Ne vom orienta asupra a două dimensiuni: reflecții despre felul în care clienții cu care lucrăm se raportează la comunitățile din care fac parte, respectiv conștientizări privind relațiile pe care le dezvoltăm ca practicieni cu propriile comunități, de natură profesională și nu numai. Workshop-ul este deschis practicienilor din analiză tranzacțională din toate domeniile de activitate, indiferent de nivelul de experiență."
+Având la bază experiența noastră clinică și cadre teoretice complementare (W.F. Cornell, M. Landaiche, G. Petriglieri, S. Peck), vom explora alături de participanți posibilitatea de a imagina patru stadii de dezvoltare a acestei relaționări complexe dintre minte și comunitate: apartenența prematură la o pseudo-comunitate, deziluzia, dezorganizarea și revendicarea.
+Vom include în lucrul nostru împreună prezentări teoretice, discuții în grupuri mici și studii de caz. Ne vom orienta asupra a două dimensiuni: reflecții despre felul în care clienții cu care lucrăm se raportează la comunitățile din care fac parte, respectiv conștientizări privind relațiile pe care le dezvoltăm ca practicieni cu propriile comunități, de natură profesională și nu numai. Workshop-ul este deschis practicienilor din analiză tranzacțională din toate domeniile de activitate, indiferent de nivelul de experiență."
           data-desc-en="Our intention in this workshop is to address the complex relationship between the mind and community, as well as the challenges our minds may encounter as they begin to become part of the fabric of a community.
 Will they be definitively lost and surrender to the oppressive experience, or can they be rediscovered, transformed and enriched?
 How will our minds continue to use their capacity for reflection and keep alive the resources needed to remain curious, rather than resorting to idealisation, devaluation or other forms of thinking that arise in the absence of sufficient emotional regulation?
@@ -1340,8 +1417,8 @@ Workshopul propune o explorare a conceptului de loialitate – explicită și in
 Participanții vor avea ocazia să lucreze pe studii de caz și exerciții experiențiale, să identifice dinamici de loialitate în contexte clinice și să formuleze intervenții bazate pe concepte AT, cu scopul de a susține atât diferențierea adolescentului, cât și menținerea unei relații funcționale cu părinții.
 Workshopul se adresează profesioniștilor care lucrează cu adolescenți și familiile acestora și oferă un cadru aplicativ pentru înțelegerea și intervenția în complexitatea relațiilor dintre individ și comunitățile din care face parte."
                 data-desc-en="Adolescence is a period marked by tensions arising from the need for belonging versus the need for differentiation, in which loyalties toward family, peer groups, and other communities often become competing. From the perspective of Transactional Analysis, these dynamics can be understood as expressions of the life script (Eric Berne, 1972), within which the Cultural Parent (Pearl Drego, 1983) manifests, influencing the way the adolescent negotiates identity and meaningful relationships.
-The workshop proposes an exploration of the concept of loyalty – both explicit and invisible – within the parent–adolescent system, highlighting how conflicts arise when belonging and autonomy are experienced as incompatible. Common relational patterns will be analyzed, including psychological games and communication blockages, as well as their impact on the adolescent’s developmental process.
-Participants will have the opportunity to work on case studies and experiential exercises, to identify loyalty dynamics in clinical contexts, and to formulate interventions based on TA concepts, with the aim of supporting both the adolescent’s differentiation and the maintenance of a functional relationship with their parents.
+The workshop proposes an exploration of the concept of loyalty – both explicit and invisible – within the parent–adolescent system, highlighting how conflicts arise when belonging and autonomy are experienced as incompatible. Common relational patterns will be analyzed, including psychological games and communication blockages, as well as their impact on the adolescent's developmental process.
+Participants will have the opportunity to work on case studies and experiential exercises, to identify loyalty dynamics in clinical contexts, and to formulate interventions based on TA concepts, with the aim of supporting both the adolescent's differentiation and the maintenance of a functional relationship with their parents.
 The workshop is addressed to professionals working with adolescents and their families and offers a practical framework for understanding and intervening in the complexity of the relationships between the individual and the communities to which they belong.">
                 <span data-lang="ro">Alina Pavel (PTSTA-P)</span>
                 <span data-lang="en">Alina Pavel (PTSTA-P)</span>
@@ -1456,9 +1533,7 @@ The workshop will include case studies and applied exercises that facilitate the
               <li data-title-ro="Manifestări culturale în grupuri/comunități: o perspectivă a analizei tranzacționale relaționale"
               data-title-en="Cultural Enactments in Groups/Communities: A Relational Transactional Analysis Perspective"
                   data-desc-ro="Acest atelier explorează modul în care materialul inconștient cultural și social devine acționat — mai degrabă decât gândit — în cadrul grupurilor și comunităților profesionale. Grupurile poartă adesea un material cultural nespus — experiențe istorice, anxietăți colective, relații moștenite față de autoritate și diferență — care iese la suprafață nu prin discuții explicite, ci prin tăceri bruşte, schimbări de alianțe sau momente de apărare colectivă. Folosind teoria lui Bion privind asumțiile de bază, alături de conceptele lui Berne și Drego despre cultura de grup (cultura tehnică, eticheta și caracterul), atelierul oferă un cadru pentru recunoașterea acestor momente pe măsură ce apar în grupuri și comunități — momente în care ceea ce se acționează revelează mai mult decât ceea ce se spune explicit.
-Sesiunea se bazează, de asemenea, pe conceptul de inconștient social (Hopper) pentru a analiza modul în care contextul cultural și istoric mai larg al unui grup poate modela viața sa inconștientă, ieșind adesea la suprafață în mod imprevizibil și deghizat sub formă de evenimente pur interpersonale sau intrapsihice. Participanții vor fi invitați să reflecteze asupra propriilor comunități profesionale și grupuri de formare, analizând ce material cultural sau istoric poate acționa în tăcere în interiorul lor și ce condiții ar putea permite unui grup să gândească despre acest material în loc să îl acționeze pur și simplu."
-                  data-desc-en="This workshop explores how cultural and social unconscious material becomes enacted — rather than thought about — within groups and professional communities. Groups often carry unspoken cultural material — historical experiences, collective anxieties, inherited relationships to authority and difference — that surfaces not through explicit discussion but through sudden silences, shifting alliances, or moments of collective defense. Using Bion's theory of basic assumptions alongside Berne's and Drego's concepts of group culture (technical culture, etiquette, and character), the workshop offers a framework for recognizing such moments as they arise in groups and communities — moments where what is enacted reveals more than what is explicitly said.
-The session further draws on the concept of the social unconscious (Hopper) to consider how a group's wider cultural and historical context can shape its unconscious life, often surfacing unpredictably and disguised as purely interpersonal or intrapsychic events. Participants will be invited to reflect on their own professional communities and training groups, considering what cultural or historical material may be silently at work within them, and what conditions might allow a group to think about such material rather than simply enact it.
+Sesiunea se bazează, de asemenea, pe conceptul de inconștient social (Hopper) pentru a analiza modul în care contextul cultural și istoric mai larg al unui grup poate modela viața sa inconștientă, ieșind adesea la suprafață în mod imprevizibil și deghizat sub formă de evenimente pur interpersonale sau intrapsihice. Participanții vor fi invitați să reflecteze asupra propriilor comunități profesionale și grupuri de formare, analizând ce material cultural sau istoric poate acționa în tăcere în interiorul lor și ce condiții ar putea permite unui grup să gândească despre acest material în loc să îl acționeze pur și simplu.
 ">
                 <span data-lang="ro">Danijela Budisa Ubovic (TSTA-P)</span>
                 <span data-lang="en">Danijela Budisa Ubovic (TSTA-P)</span>
@@ -1485,7 +1560,6 @@ The session further draws on the concept of the social unconscious (Hopper) to c
         </div>
 
 
-
                 <div class="project-card person-card"
           data-title-ro="Physis și Apartenența: Navigând Autonomia prin Diferențe și Loialități Recursive"
           data-title-en="Physis and Belonging: Navigating Autonomy through Differences and Recursive Loyalties"
@@ -1501,8 +1575,8 @@ Prin integrarea cercetărilor sistemice cu AT contemporan, acest seminar oferă 
 By integrating systemic research with contemporary TA, this seminar offers insight into why people often struggle to change despite receiving or granting themselves 'permission'.">
 
           <div class="dropup-trigger">
-            <span data-lang="ro">Alessandra Pierini (TSTA P/O)</span>
-                <span data-lang="en">Alessandra Pierini (TSTA P/O)</span>
+            <h4 data-lang="ro">Alessandra Pierini (TSTA P/O)</h4>
+            <h4 data-lang="en">Alessandra Pierini (TSTA P/O)</h4>
             <p data-lang="ro">Citește aici</p>
             <p data-lang="en">Read here</p>
 
@@ -1520,6 +1594,15 @@ By integrating systemic research with contemporary TA, this seminar offers insig
       <h4 id="popupTitle"></h4>
       <p class="popup-scroll-label">&#8595; scroll</p>
       <p id="popupDesc"></p>
+    </div>
+  </div>
+
+  <!-- LIST OVERLAY (fereastra float cu toate itemurile) -->
+  <div class="list-overlay" id="listOverlay">
+    <div class="list-box">
+      <button class="popup-close" id="listClose">&#x2715;</button>
+      <h4 id="listTitle"></h4>
+      <ul id="listItems"></ul>
     </div>
   </div>
 
@@ -1587,114 +1670,96 @@ By integrating systemic research with contemporary TA, this seminar offers insig
     }, { threshold: 0.3 });
     sections.forEach(s => borderObs.observe(s));
 
-    /* ─── Dropup ─── */
-    // document.querySelectorAll('.dropup').forEach(card => {
-    //   card.addEventListener('click', () => card.classList.toggle('open'));
-    // });
-    document.querySelectorAll('.dropup-menu').forEach(menu => {
-      menu.addEventListener('click', e => e.stopPropagation());
-    });
-
-    document.querySelectorAll('#program .dropup').forEach(card => {
-      card.addEventListener('click', () => {
-        const wasOpen = card.classList.contains('open');
-        card.classList.toggle('open');
-
-        if (!wasOpen) {
-          const menu = card.querySelector('.dropup-menu');
-
-          // asteptam sa se termine tranzitia de deschidere (max-height .35s)
-          setTimeout(() => {
-            if (menu.scrollHeight > menu.clientHeight) {
-              menu.scrollTo({ top: 24, behavior: 'smooth' });
-              setTimeout(() => {
-                menu.scrollTo({ top: 0, behavior: 'smooth' });
-              }, 450);
-            }
-          }, 360);
-        }
-
-        if (!wasOpen && !card.dataset.opened) {
-          card.dataset.opened = 'true';
-          const trigger = card.querySelector('.dropup-trigger');
-          trigger.classList.add('nudge');
-          trigger.addEventListener('animationend', () => {
-            trigger.classList.remove('nudge');
-          }, { once: true });
-        }
-      });
-    });
-
-
-    document.querySelectorAll('#workshopuri .dropup').forEach(card => {
-      card.addEventListener('click', () => {
-        const wasOpen = card.classList.contains('open');
-        card.classList.toggle('open');
-
-        const menu = card.querySelector('.dropup-menu');
-        const itemCount = menu.querySelectorAll('li').length;
-
-        if (!wasOpen && itemCount > 1) {
-          setTimeout(() => {
-            if (menu.scrollHeight > menu.clientHeight) {
-              menu.scrollTo({ top: 24, behavior: 'smooth' });
-              setTimeout(() => {
-                menu.scrollTo({ top: 0, behavior: 'smooth' });
-              }, 450);
-            }
-          }, 360);
-        }
-
-        if (!wasOpen && !card.dataset.opened) {
-          card.dataset.opened = 'true';
-          const trigger = card.querySelector('.dropup-trigger');
-          trigger.classList.add('nudge');
-          trigger.addEventListener('animationend', () => {
-            trigger.classList.remove('nudge');
-          }, { once: true });
-        }
-      });
-    });
-
-    document.querySelectorAll('.dropup-menu').forEach(menu => {
-      menu.addEventListener('click', e => e.stopPropagation());
-    });
-
-
-
-document.querySelectorAll('.dropup-menu').forEach(menu => {
-  menu.addEventListener('click', e => e.stopPropagation());
-});
-
-    /* ─── Popup ─── */
+    /* ─── Popup de detalii ─── */
     const overlay    = document.getElementById('popupOverlay');
     const popupTitle = document.getElementById('popupTitle');
     const popupDesc  = document.getElementById('popupDesc');
     const popupClose = document.getElementById('popupClose');
 
-    document.querySelectorAll('.dropup-menu li').forEach(li => {
-      li.addEventListener('click', e => {
-        e.stopPropagation();
-        const lang = currentLang;
-        popupTitle.textContent = li.dataset['title' + lang.charAt(0).toUpperCase() + lang.slice(1)]
-                                 || li.dataset['titleRo']
-                                 || li.textContent.trim();
-        popupDesc.textContent  = li.dataset['desc' + lang.charAt(0).toUpperCase() + lang.slice(1)]
-                                 || li.dataset['descRo']
-                                 || '';
-        const box = document.querySelector('.popup-box');
-        box.scrollTop = 0;
-        box.classList.remove('scrolled-to-end');
-        overlay.classList.add('open');
-        requestAnimationFrame(() => {
-          const label = document.querySelector('.popup-scroll-label');
-          label.style.display = box.scrollHeight > box.clientHeight ? 'block' : 'none';
-        });
+    function getLangDataset(el, prefix) {
+      const lang = currentLang;
+      return el.dataset[prefix + lang.charAt(0).toUpperCase() + lang.slice(1)]
+          || el.dataset[prefix + 'Ro']
+          || '';
+    }
+
+    function openDetailPopup(el) {
+      popupTitle.textContent = getLangDataset(el, 'title') || el.textContent.trim();
+      popupDesc.textContent  = getLangDataset(el, 'desc');
+      const box = document.querySelector('.popup-box');
+      box.scrollTop = 0;
+      box.classList.remove('scrolled-to-end');
+      overlay.classList.add('open');
+      requestAnimationFrame(() => {
+        const label = document.querySelector('.popup-scroll-label');
+        label.style.display = box.scrollHeight > box.clientHeight ? 'block' : 'none';
       });
-    });
+    }
 
     popupClose.addEventListener('click', () => overlay.classList.remove('open'));
     overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+    /* Persoanele din Echipă rămân cu click direct pe popup, ca înainte */
+    document.querySelectorAll('.person-card').forEach(card => {
+      card.addEventListener('click', () => openDetailPopup(card));
+    });
+
+    /* ─── Fereastra float cu toate itemurile (Program + Ateliere) ─── */
+    const listOverlay = document.getElementById('listOverlay');
+    const listBox      = document.querySelector('.list-box');
+    const listTitle    = document.getElementById('listTitle');
+    const listItemsEl  = document.getElementById('listItems');
+    const listClose    = document.getElementById('listClose');
+
+    function getLangHeading(trigger) {
+      return trigger.querySelector(`h3[data-lang="${currentLang}"]`)
+          || trigger.querySelector(`h4[data-lang="${currentLang}"]`)
+          || trigger.querySelector('h3')
+          || trigger.querySelector('h4');
+    }
+
+    function openListWindow(card) {
+      const trigger = card.querySelector('.dropup-trigger');
+      const titleEl = getLangHeading(trigger);
+      listTitle.textContent = titleEl ? titleEl.textContent.trim() : '';
+
+      const sourceLis = card.querySelectorAll('.dropup-menu ul li');
+      const itemCount = sourceLis.length;
+
+      listItemsEl.innerHTML = '';
+      sourceLis.forEach((origLi, idx) => {
+        const li = origLi.cloneNode(true);
+        li.classList.add('pop-in');
+        li.style.animationDelay = (idx * 45) + 'ms';
+        li.addEventListener('click', e => {
+          e.stopPropagation();
+          openDetailPopup(li);
+        });
+        listItemsEl.appendChild(li);
+      });
+
+      listOverlay.classList.add('open');
+      listBox.scrollTop = 0;
+
+      if (itemCount > 1) {
+        setTimeout(() => {
+          if (listBox.scrollHeight > listBox.clientHeight) {
+            listBox.scrollTo({ top: 24, behavior: 'smooth' });
+            setTimeout(() => listBox.scrollTo({ top: 0, behavior: 'smooth' }), 450);
+          }
+        }, 200);
+      }
+    }
+
+    document.querySelectorAll('#program .project-card.dropup, #workshopuri .project-card.dropup')
+      .forEach(card => {
+        card.addEventListener('click', () => openListWindow(card));
+      });
+
+    listClose.addEventListener('click', () => listOverlay.classList.remove('open'));
+    listOverlay.addEventListener('click', e => {
+      if (e.target === listOverlay) listOverlay.classList.remove('open');
+    });
 
     /* ─── Acasă slides ─── */
     const slide1     = document.getElementById('slide1');
@@ -1749,24 +1814,6 @@ document.querySelectorAll('.dropup-menu').forEach(menu => {
       const r = acasaSec.getBoundingClientRect();
       if (r.top > -10 && r.top < 10 && currentSlide !== 0) goToSlide(0);
     }, 200));
-
-    document.querySelectorAll('.person-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const lang = currentLang;
-        popupTitle.textContent = card.dataset['title' + lang.charAt(0).toUpperCase() + lang.slice(1)]
-                                || card.dataset['titleRo'] || '';
-        popupDesc.textContent  = card.dataset['desc' + lang.charAt(0).toUpperCase() + lang.slice(1)]
-                                || card.dataset['descRo'] || '';
-        const box = document.querySelector('.popup-box');
-        box.scrollTop = 0;
-        box.classList.remove('scrolled-to-end');
-        overlay.classList.add('open');
-        requestAnimationFrame(() => {
-          const label = document.querySelector('.popup-scroll-label');
-          label.style.display = box.scrollHeight > box.clientHeight ? 'block' : 'none';
-        });
-      });
-    });
   </script>
 
 </body>
