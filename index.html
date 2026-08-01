@@ -184,6 +184,16 @@
       to   { transform: translate3d(0, var(--dots-gap), 0); }
     }
 
+    @keyframes dropup-nudge {
+      0%   { transform: translateY(0); }
+      30%  { transform: translateY(-6px); }
+      60%  { transform: translateY(2px); }
+      100% { transform: translateY(0); }
+    }
+    .dropup-trigger.nudge {
+      animation: dropup-nudge .5s ease;
+    }
+
     /* ─── ACASA SLIDES ─── */
     #acasa-inner {
       position : absolute;
@@ -672,14 +682,14 @@
 
       <h2 style="margin-top:1.5rem;">
         <span style="font-family:'Anton',sans-serif; color:var(--turquoise); font-size:2em; vertical-align:middle;">×</span>
-        <a href="https://form.jotform.com/conferintaarat2025/xxxa" target="_blank" rel="noopener noreferrer" data-lang="ro">Înscriere membri ARAT</a>
-        <a href="https://form.jotform.com/conferintaarat2025/xxxa" target="_blank" rel="noopener noreferrer" data-lang="en">ARAT members registration</a>
+        <a href="https://form.jotform.com/conferintaarat2025/xxxa" target="_blank" rel="noopener noreferrer" data-lang="ro">Membri ARAT</a>
+        <a href="https://form.jotform.com/conferintaarat2025/xxxa" target="_blank" rel="noopener noreferrer" data-lang="en">ARAT members</a>
         <span style="font-family:'Anton',sans-serif; color:var(--turquoise); font-size:2em; vertical-align:middle;">×</span>
       </h2>
             <h2 style="margin-top:1.5rem;">
         <span style="font-family:'Anton',sans-serif; color:var(--turquoise); font-size:2em; vertical-align:middle;">×</span>
-        <a href="https://form.jotform.com/conferintaarat2025/non-arat" target="_blank" rel="noopener noreferrer" data-lang="ro">Înscriere participanți non-ARAT</a>
-        <a href="https://form.jotform.com/conferintaarat2025/non-arat" target="_blank" rel="noopener noreferrer" data-lang="en">Non-ARAT participants registration</a>
+        <a href="https://form.jotform.com/conferintaarat2025/non-arat" target="_blank" rel="noopener noreferrer" data-lang="ro"> Participanți non-ARAT</a>
+        <a href="https://form.jotform.com/conferintaarat2025/non-arat" target="_blank" rel="noopener noreferrer" data-lang="en">Non-ARAT participants</a>
         <span style="font-family:'Anton',sans-serif; color:var(--turquoise); font-size:2em; vertical-align:middle;">×</span>
       </h2>
     </div>
@@ -714,6 +724,8 @@
           <div class="dropup-trigger">
             <h3 data-lang="ro">Vineri — Ziua I</h3>
             <h3 data-lang="en">Friday — Day I</h3>
+            <p data-lang="ro">Citește aici</p>
+            <p data-lang="en">Read here</p>
             <span class="dropup-arrow">&#8963;</span>
           </div>
           <div class="dropup-menu">
@@ -765,6 +777,8 @@
           <div class="dropup-trigger">
             <h3 data-lang="ro">Sâmbătă — Ziua II</h3>
             <h3 data-lang="en">Saturday — Day II</h3>
+            <p data-lang="ro">Citește aici</p>
+            <p data-lang="en">Read here</p>
             <span class="dropup-arrow">&#8963;</span>
           </div>
           <div class="dropup-menu">
@@ -883,6 +897,8 @@
           <div class="dropup-trigger">
             <h3 data-lang="ro">Duminică — Ziua III</h3>
             <h3 data-lang="en">Sunday — Day III</h3>
+            <p data-lang="ro">Citește aici</p>
+            <p data-lang="en">Read here</p>
             <span class="dropup-arrow">&#8963;</span>
           </div>
           <div class="dropup-menu">
@@ -975,6 +991,8 @@
           <div class="dropup-trigger">
             <h3 data-lang="ro">Luni — Ziua IV</h3>
             <h3 data-lang="en">Monday — Day IV</h3>
+            <p data-lang="ro">Citește aici</p>
+            <p data-lang="en">Read here</p>
             <span class="dropup-arrow">&#8963;</span>
           </div>
           <div class="dropup-menu">
@@ -1579,12 +1597,83 @@ By integrating systemic research with contemporary TA, this seminar offers insig
     sections.forEach(s => borderObs.observe(s));
 
     /* ─── Dropup ─── */
-    document.querySelectorAll('.dropup').forEach(card => {
-      card.addEventListener('click', () => card.classList.toggle('open'));
-    });
+    // document.querySelectorAll('.dropup').forEach(card => {
+    //   card.addEventListener('click', () => card.classList.toggle('open'));
+    // });
     document.querySelectorAll('.dropup-menu').forEach(menu => {
       menu.addEventListener('click', e => e.stopPropagation());
     });
+
+    document.querySelectorAll('#program .dropup').forEach(card => {
+      card.addEventListener('click', () => {
+        const wasOpen = card.classList.contains('open');
+        card.classList.toggle('open');
+
+        if (!wasOpen) {
+          const menu = card.querySelector('.dropup-menu');
+
+          // asteptam sa se termine tranzitia de deschidere (max-height .35s)
+          setTimeout(() => {
+            if (menu.scrollHeight > menu.clientHeight) {
+              menu.scrollTo({ top: 24, behavior: 'smooth' });
+              setTimeout(() => {
+                menu.scrollTo({ top: 0, behavior: 'smooth' });
+              }, 450);
+            }
+          }, 360);
+        }
+
+        if (!wasOpen && !card.dataset.opened) {
+          card.dataset.opened = 'true';
+          const trigger = card.querySelector('.dropup-trigger');
+          trigger.classList.add('nudge');
+          trigger.addEventListener('animationend', () => {
+            trigger.classList.remove('nudge');
+          }, { once: true });
+        }
+      });
+    });
+
+
+    document.querySelectorAll('#workshopuri .dropup').forEach(card => {
+      card.addEventListener('click', () => {
+        const wasOpen = card.classList.contains('open');
+        card.classList.toggle('open');
+
+        const menu = card.querySelector('.dropup-menu');
+        const itemCount = menu.querySelectorAll('li').length;
+
+        if (!wasOpen && itemCount > 1) {
+          setTimeout(() => {
+            if (menu.scrollHeight > menu.clientHeight) {
+              menu.scrollTo({ top: 24, behavior: 'smooth' });
+              setTimeout(() => {
+                menu.scrollTo({ top: 0, behavior: 'smooth' });
+              }, 450);
+            }
+          }, 360);
+        }
+
+        if (!wasOpen && !card.dataset.opened) {
+          card.dataset.opened = 'true';
+          const trigger = card.querySelector('.dropup-trigger');
+          trigger.classList.add('nudge');
+          trigger.addEventListener('animationend', () => {
+            trigger.classList.remove('nudge');
+          }, { once: true });
+        }
+      });
+    });
+
+    document.querySelectorAll('.dropup-menu').forEach(menu => {
+      menu.addEventListener('click', e => e.stopPropagation());
+    });
+
+
+
+document.querySelectorAll('.dropup-menu').forEach(menu => {
+  menu.addEventListener('click', e => e.stopPropagation());
+});
 
     /* ─── Popup ─── */
     const overlay    = document.getElementById('popupOverlay');
