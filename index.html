@@ -108,6 +108,8 @@
       border-right   : 1px solid rgba(232,228,210,.15);
     }
     nav a:last-child { border-right: none; }
+    /* Home și FAQ mai înguste, ca să rămână loc pentru restul */
+    nav a[href="#acasa"], nav a[href="#faq"] { flex: .55; }
     nav a:hover { background: rgba(226,105,97,.25); }
     nav a.active { background: var(--dark-peach); color: var(--purple-brown); }
     nav a[href="#acasa"].active { background: var(--egg-shell); color: var(--purple-brown); }
@@ -144,6 +146,7 @@
     #program    { background: var(--egg-shell);    color: var(--purple-brown); }
     #echipa      { background: var(--turquoise);   color: var(--purple-brown); }
     #workshopuri { background: var(--home-bg);      color: var(--egg-shell); }
+    #faq         { background: var(--egg-shell);    color: var(--purple-brown); }
 
     /* ─── DOTS ─── */
     .dots:before, .dots:after {
@@ -178,6 +181,10 @@
     #workshopuri .dots:before  { left: 14%; }
     #workshopuri .dots:after   { right: 14%; }
     #workshopuri .dots:before, #workshopuri .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
+
+    #faq .dots:before  { left: 9%; }
+    #faq .dots:after   { right: 9%; }
+    #faq .dots:before, #faq .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     @keyframes movebg {
       from { transform: translate3d(0,0,0); }
@@ -276,6 +283,7 @@
     #program .hero-title    { background-color: var(--purple-brown); }
     #echipa .hero-title      { background-color: var(--purple-brown); }
     #workshopuri .hero-title { background-color: var(--dark-peach); }
+    #faq .hero-title         { background-color: var(--purple-brown); }
 
     /* ─── CONȚINUT ─── */
     .section-content {
@@ -420,6 +428,74 @@
 
     #workshopuri .dropup-arrow { color: var(--dark-peach); }
     #workshopuri .dropup-menu  { border-left-color: var(--dark-peach); }
+
+    /* ─── FAQ ─── */
+    .faq-list {
+      display        : flex;
+      flex-direction : column;
+      gap            : 1rem;
+      margin-top     : 1.5rem;
+      text-align     : left;
+    }
+
+    .faq-item {
+      background  : var(--purple-brown);
+      color       : var(--egg-shell);
+      border-left : 4px solid var(--dark-peach);
+    }
+
+    .faq-q {
+      display        : block;
+      width          : 100%;
+      position       : relative;
+      padding        : 1.1rem 3.25rem 1.1rem 1.5rem;
+      background     : none;
+      border         : none;
+      color          : inherit;
+      text-align     : left;
+      font-family    : "Anton", sans-serif;
+      font-size      : 1.05rem;
+      font-weight    : 400;
+      letter-spacing : 1px;
+      line-height    : 1.35;
+      text-transform : uppercase;
+      cursor         : pointer;
+      transition     : color .2s;
+    }
+    .faq-q:hover { color: var(--turquoise); }
+
+    .faq-q:after {
+      content     : "+";
+      position    : absolute;
+      top         : 50%;
+      right       : 1.25rem;
+      font-size   : 1.8rem;
+      line-height : 1;
+      color       : var(--dark-peach);
+      transform   : translateY(-50%);
+      transition  : transform .3s ease;
+    }
+    .faq-item.open .faq-q:after { transform: translateY(-50%) rotate(45deg); }
+
+    .faq-a {
+      max-height : 0;
+      overflow   : hidden;
+      transition : max-height .35s ease;
+    }
+    .faq-a-inner {
+      padding     : 0 1.5rem 1.25rem;
+      font-size   : .98rem;
+      line-height : 1.7;
+      opacity     : .85;
+      border-top  : 1px solid rgba(232,228,210,.15);
+      margin      : 0 1.5rem;
+      padding     : 1rem 0 1.25rem;
+    }
+    .faq-a-inner a { color: var(--turquoise); text-decoration: underline; }
+
+    @media (max-width: 800px) {
+      nav a { letter-spacing: 1px; }
+    }
 
     /* ─── POPUP MODAL ─── */
     .popup-overlay {
@@ -663,7 +739,7 @@
 <!--      <span class="nav-roman">I</span>-->
     </a>
     <a href="#form">
-      <span class="nav-full" data-lang="ro">Înscriere</span>
+      <span class="nav-full" data-lang="ro">Înscrieri</span>
       <span class="nav-full" data-lang="en">Register</span>
 <!--      <span class="nav-roman">II</span>-->
     </a>
@@ -681,6 +757,10 @@
       <span class="nav-full" data-lang="ro">Ateliere</span>
       <span class="nav-full" data-lang="en">Wrkshops</span>
 <!--      <span class="nav-roman">V</span>-->
+    </a>
+    <a href="#faq">
+      <span class="nav-full" data-lang="ro">FAQ</span>
+      <span class="nav-full" data-lang="en">FAQ</span>
     </a>
   </nav>
 
@@ -1590,6 +1670,116 @@ By integrating systemic research with contemporary TA, this seminar offers insig
 
       </div>
     </div>
+    <a href="#faq" class="scroll-down" style="color:var(--egg-shell);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </a>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section id="faq">
+    <div class="dots"></div>
+    <a href="#workshopuri" class="scroll-up" style="color:var(--purple-brown);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
+    </a>
+    <div class="section-content reveal">
+      <h1 class="hero-title" data-lang="ro">FAQ</h1>
+      <h1 class="hero-title" data-lang="en">FAQ</h1>
+
+      <p data-lang="ro">Răspunsuri rapide la cele mai frecvente întrebări despre conferință.</p>
+      <p data-lang="en">Quick answers to the most common questions about the conference.</p>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-lang="ro">Unde are loc conferința?</span>
+            <span data-lang="en">Where does the conference take place?</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <div data-lang="ro">La Universitatea de Vest din Timișoara. Sesiunile plenare se țin în Aula Bibliotecii centrale universitare „Eugen Todoran”, iar atelierele în sălile de la etajele 2 și 3.</div>
+            <div data-lang="en">At the West University of Timișoara. Plenary sessions take place in the "Eugen Todoran" Aula of the Central University Library, while the workshops are held in rooms on the 2nd and 3rd floors.</div>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-lang="ro">Cum mă înscriu?</span>
+            <span data-lang="en">How do I register?</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <div data-lang="ro">Completează formularul din secțiunea <a href="#form">Înscriere</a> (există câte un formular pentru membrii ARAT și unul pentru vizitatori). Vei primi un mail de confirmare în cel mult 24 de ore.</div>
+            <div data-lang="en">Fill in the form in the <a href="#form">Register</a> section (there is one form for ARAT members and one for visitors). You will receive a confirmation email within 24 hours.</div>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-lang="ro">Cât durează conferința?</span>
+            <span data-lang="en">How long is the conference?</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <div data-lang="ro">Patru zile: vineri (pre-conferință), sâmbătă și duminică (conferința propriu-zisă) și luni (post-conferință). Detaliile fiecărei zile se găsesc în secțiunea <a href="#program">Program</a>.</div>
+            <div data-lang="en">Four days: Friday (pre-conference), Saturday and Sunday (the conference itself) and Monday (post-conference). Details for each day can be found in the <a href="#program">Schedule</a> section.</div>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-lang="ro">Unde aflu sala fiecărui atelier?</span>
+            <span data-lang="en">Where do I find the room for each workshop?</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <div data-lang="ro">În secțiunea Program, deschide ziua dorită și apasă pe intervalul orar al atelierului: vei vedea etajul, sala și lista atelierelor care se desfășoară în paralel.</div>
+            <div data-lang="en">In the Schedule section, open the day you want and click on the workshop time slot: you will see the floor, the room and the list of workshops running in parallel.</div>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-lang="ro">Se poate modifica programul?</span>
+            <span data-lang="en">Can the schedule change?</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <div data-lang="ro">Pot apărea mici ajustări de orar (mutări de activități între intervale), în funcție de coordonatori și de dinamica înscrierilor. Conținutul și durata activităților rămân neschimbate.</div>
+            <div data-lang="en">There may be small schedule adjustments (activities moved between time slots), depending on the coordinators and registration dynamics. The content and duration of the activities remain unchanged.</div>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-lang="ro">Primesc diplomă sau credite profesionale?</span>
+            <span data-lang="en">Do I get a certificate or professional credits?</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <div data-lang="ro">Participanții primesc diplome și certificate de participare, iar pentru psihologi, activitățile formative ale conferinței sunt recunoscute de Colegiul Psihologilor prin credite profesionale. Prezența la ateliere este evidențiată de organizatori.</div>
+            <div data-lang="en">Participants receive diplomas and certificates of attendance, and for psychologists the formative activities of the conference are recognised by the College of Psychologists through professional credits. Attendance at workshops is tracked by the organisers.</div>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-lang="ro">Ce sunt examenele mock?</span>
+            <span data-lang="en">What are the mock exams?</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <div data-lang="ro">Sunt simulări ale examenelor de certificare în Analiză Tranzacțională, prin care participanții se pregătesc pentru rigoarea evaluării oficiale. Au loc sâmbătă, între 17:15 și 18:30.</div>
+            <div data-lang="en">They are simulations of Transactional Analysis certification exams, helping participants prepare for the rigour of the official assessment. They take place on Saturday, 17:15–18:30.</div>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span data-lang="ro">Care este numărul maxim de ore de formare recunoscute în AT și de credite COPSI pe care le pot obține?</span>
+            <span data-lang="en">What is the maximum number of TA training hours and COPSI credits I can earn?</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <div data-lang="ro">Numărul total maxim este de 24 de ore de formare recunoscute în AT, respectiv 24 de credite COPSI. Acest maxim este valabil dacă trainerul ales este PTSTA și/sau specialist COPSI.</div>
+            <div data-lang="en">The maximum total is 24 recognised TA training hours and 24 COPSI credits. This maximum applies if the chosen trainer is a PTSTA and/or a COPSI specialist.</div>
+          </div></div>
+        </div>
+
+      </div>
+    </div>
   </section>
 
   <!-- POPUP MODAL -->
@@ -1634,6 +1824,7 @@ By integrating systemic research with contemporary TA, this seminar offers insig
       program    : '#e8e4d2',
       echipa      : '#e8e4d2',
       workshopuri : '#e8e4d2',
+      faq         : '#e8e4d2',
     };
 
     function throttle(fn, limit) {
@@ -1765,6 +1956,32 @@ By integrating systemic research with contemporary TA, this seminar offers insig
     listOverlay.addEventListener('click', e => {
       if (e.target === listOverlay) listOverlay.classList.remove('open');
     });
+
+    /* ─── FAQ accordion ─── */
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const q = item.querySelector('.faq-q');
+      const a = item.querySelector('.faq-a');
+      q.addEventListener('click', () => {
+        const willOpen = !item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(o => {
+          o.classList.remove('open');
+          o.querySelector('.faq-a').style.maxHeight = 0;
+        });
+        if (willOpen) {
+          item.classList.add('open');
+          a.style.maxHeight = a.scrollHeight + 'px';
+        }
+      });
+    });
+    window.addEventListener('resize', () => {
+      document.querySelectorAll('.faq-item.open .faq-a').forEach(a => a.style.maxHeight = a.scrollHeight + 'px');
+    });
+    /* recalculeaza inaltimea la schimbarea limbii */
+    const _setLang = setLang;
+    setLang = function(l) {
+      _setLang(l);
+      requestAnimationFrame(() => document.querySelectorAll('.faq-item.open .faq-a').forEach(a => a.style.maxHeight = a.scrollHeight + 'px'));
+    };
 
     /* ─── Acasă slides ─── */
     const slide1     = document.getElementById('slide1');
