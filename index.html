@@ -108,8 +108,9 @@
       border-right   : 1px solid rgba(232,228,210,.15);
     }
     nav a:last-child { border-right: none; }
-    /* Home și FAQ mai înguste, ca să rămână loc pentru restul */
-    nav a[href="#acasa"], nav a[href="#faq"] { flex: .55; }
+    /* Acasă, Echipa și FAQ: aceeași lățime (mai îngustă); restul primesc mai mult loc */
+    nav a { flex: 1.3 1 0; min-width: 0; padding-left: .2rem; padding-right: .2rem; }
+    nav a[href="#acasa"], nav a[href="#echipa"], nav a[href="#faq"] { flex: 1 1 0; }
     nav a:hover { background: rgba(226,105,97,.25); }
     nav a.active { background: var(--dark-peach); color: var(--purple-brown); }
     nav a[href="#acasa"].active { background: var(--egg-shell); color: var(--purple-brown); }
@@ -121,13 +122,22 @@
     @media (max-width: 540px) {
       nav a {
         letter-spacing : 0;
-        font-size      : .95rem;
+        font-size      : .8rem;
         font-family    : "Anton", sans-serif;
         font-weight    : 400;
-        padding        : .75rem 0;
+        padding        : .75rem .1rem;
       }
       nav a .nav-full  { display: none; }
       nav a .nav-roman { display: inline; }
+
+      /* mobil: Acasă primește mai mult loc, Echipa și FAQ mai puțin */
+      nav a { white-space: nowrap; }
+      nav a[href="#acasa"]      { flex: 1.25 1 0; }
+      nav a[href="#form"]       { flex: 1.35 1 0; }
+      nav a[href="#program"]    { flex: 1.2  1 0; }
+      nav a[href="#echipa"]     { flex: .95  1 0; }
+      nav a[href="#workshopuri"]{ flex: 1.3  1 0; }
+      nav a[href="#faq"]        { flex: .7   1 0; }
     }
 
     /* ─── SECȚIUNI ─── */
@@ -739,7 +749,7 @@
 <!--      <span class="nav-roman">I</span>-->
     </a>
     <a href="#form">
-      <span class="nav-full" data-lang="ro">Înscriere</span>
+      <span class="nav-full" data-lang="ro">Înscrieri</span>
       <span class="nav-full" data-lang="en">Register</span>
 <!--      <span class="nav-roman">II</span>-->
     </a>
@@ -1751,8 +1761,8 @@ By integrating systemic research with contemporary TA, this seminar offers insig
             <span data-lang="en">Do I get a certificate or professional credits?</span>
           </button>
           <div class="faq-a"><div class="faq-a-inner">
-            <div data-lang="ro">Participanții primesc diplome și certificate de participare, iar pentru psihologi, activitățile formative ale conferinței sunt recunoscute de Colegiul Psihologilor prin credite profesionale. Prezența la ateliere este evidențiată de organizatori.</div>
-            <div data-lang="en">Participants receive diplomas and certificates of attendance, and for psychologists the formative activities of the conference are recognised by the College of Psychologists through professional credits. Attendance at workshops is tracked by the organisers.</div>
+            <div data-lang="ro">Participanții primesc diplome și certificate de participare, iar pentru psihologi, activitățile formative ale conferinței sunt recunoscute de Colegiul Psihologilor prin credite profesionale. Se pot obține până la 24 de ore și 24 de credite dacă trainerul este specialist COPSI și/sau PTSTA. Prezența la ateliere este evidențiată de organizatori.</div>
+            <div data-lang="en">Participants receive diplomas and certificates of attendance, and for psychologists the formative activities of the conference are recognised by the College of Psychologists through professional credits. You can earn up to 24 hours and 24 credits if the trainer is a COPSI specialist and/or a PTSTA. Attendance at workshops is tracked by the organisers.</div>
           </div></div>
         </div>
 
@@ -1769,12 +1779,12 @@ By integrating systemic research with contemporary TA, this seminar offers insig
 
         <div class="faq-item">
           <button class="faq-q" type="button">
-            <span data-lang="ro">Când și unde este petrecerea ARAT?</span>
-            <span data-lang="en">When and where is the ARAT party?</span>
+            <span data-lang="ro">Ce este petrecerea ARAT și cum ajung acolo?</span>
+            <span data-lang="en">What is the ARAT party and how do I get there?</span>
           </button>
           <div class="faq-a"><div class="faq-a-inner">
-            <div data-lang="ro">Sâmbătă, de la ora 19:00, la Rivière Indoor (Splaiul Spiru Haret nr. 1, Timișoara).</div>
-            <div data-lang="en">On Saturday from 19:00 at Rivière Indoor (Splaiul Spiru Haret no. 1, Timișoara).</div>
+            <div data-lang="ro">Petrecerea ARAT este momentul de relaxare și socializare de la finalul zilei de sâmbătă, după atelierele și examenele mock. Începe la ora 19:00 la Rivière Indoor, Splaiul Spiru Haret nr. 1, Timișoara (<a href="https://www.google.com/maps/search/?api=1&amp;query=Rivi%C3%A8re%20Indoor%2C%20Splaiul%20Spiru%20Haret%20nr.%201%2C%20Timi%C8%99oara" target="_blank" rel="noopener">vezi pe hartă</a>). Este organizată de echipa ARAT.</div>
+            <div data-lang="en">The ARAT party is the moment for relaxation and networking at the end of Saturday, after the workshops and mock exams. It starts at 19:00 at Rivière Indoor, Splaiul Spiru Haret no. 1, Timișoara (<a href="https://www.google.com/maps/search/?api=1&amp;query=Rivi%C3%A8re%20Indoor%2C%20Splaiul%20Spiru%20Haret%20nr.%201%2C%20Timi%C8%99oara" target="_blank" rel="noopener">see on map</a>). It is organised by the ARAT team.</div>
           </div></div>
         </div>
 
