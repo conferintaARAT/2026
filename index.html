@@ -13,7 +13,7 @@
       --home-bg      : #1a1a2e;
       --turquoise    : #5DE3D4;
       --border-width : .75rem;
-      --top-bar-h    : 2.2rem;
+      --top-bar-h    : 1rem;
       --dots-gap     : 10px;
       --nav-h        : 3rem;
     }
@@ -44,44 +44,59 @@
     /* ─── LANG SWITCHER ─── */
     .lang-switcher {
       position       : fixed;
-      top            : 0;
-      right          : var(--border-width);
-      z-index        : 200;
-      height         : var(--top-bar-h);
+      top            : calc(var(--top-bar-h) + var(--nav-h) + .6rem);
+      right          : 0;/*calc(var(--border-width) + .6rem);*/
+      z-index        : 150;
       display        : flex;
-      align-items    : center;
-      gap            : .35rem;
-      padding-right  : .75rem;
       pointer-events : auto;
+    }
+
+    /* colțuri concave: fac racordarea lină între tab și bordură */
+    .lang-switcher::before,
+    .lang-switcher::after {
+      content        : "";
+      position       : absolute;
+      right          : calc(var(--border-width) - 1px);
+      width          : 13px;
+      height         : 13px;
+      pointer-events : none;
+    }
+    .lang-switcher::before {
+      top        : -12px;
+      background : radial-gradient(circle at 0 0, transparent 11.5px, var(--egg-shell) 12px);
+    }
+    .lang-switcher::after {
+      bottom     : -12px;
+      background : radial-gradient(circle at 0 100%, transparent 11.5px, var(--egg-shell) 12px);
     }
 
     .lang-btn {
       display        : flex;
       align-items    : center;
       gap            : .3rem;
-      padding        : .18rem .5rem;
+      /* padding-right include lățimea bordurii, ca textul să rămână vizibil */
+      padding        : .5rem calc(var(--border-width) + .6rem) .5rem .9rem;
       font-family    : "Anton", sans-serif;
-      font-size      : .75rem;
+      font-size      : .8rem;
       letter-spacing : 1.5px;
       text-transform : uppercase;
-      border         : 1.5px solid transparent;
-      border-radius  : 3px;
+      border         : none;
+      border-radius  : 10px 0 0 10px;    /* rotunjit doar pe stânga */
       cursor         : pointer;
-      transition     : border-color .25s, opacity .25s;
-      background     : none;
+      background     : var(--egg-shell);
       color          : var(--purple-brown);
-      opacity        : .5;
+      box-shadow     : none;
+      transition     : background .25s;
+      outline : none;
+      -webkit-tap-highlight-color : transparent;
     }
-    .lang-btn.active {
-      border-color : var(--purple-brown);
-      opacity      : 1;
-    }
-    .lang-btn:hover { opacity: .85; }
 
-    .lang-btn .flag {
-      font-size : 1rem;
-      line-height: 1;
-    }
+    .lang-btn:focus, .lang-btn:focus-visible { outline: none; }
+    .lang-btn:hover { background: var(--egg-shell); }
+
+    /* arată doar butonul pentru limba opusă */
+    body.lang-ro #btn-ro { display: none; }
+    body.lang-en #btn-en { display: none; }
 
     /* ─── NAVIGAȚIE ─── */
     nav {
@@ -121,6 +136,9 @@
     nav a .nav-roman { display: none; }
 
     @media (max-width: 540px) {
+
+      .lang-btn { font-size: .7rem; padding: .35rem calc(var(--border-width) + .4rem) .35rem .6rem; }
+
       nav a {
         letter-spacing : 0;
         font-size      : .8rem;
