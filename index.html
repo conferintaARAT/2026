@@ -16,6 +16,7 @@
       --top-bar-h    : 1rem;
       --dots-gap     : 10px;
       --nav-h        : 3rem;
+      --corner-r : 12px;
     }
 
     *, *:before, *:after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,6 +41,31 @@
     .border-bar.bottom { bottom: 0; left: 0; right: 0; height: var(--border-width);}
     .border-bar.left   { top: -100px; left: 0; width: var(--border-width); height: calc(100vh + 200px); }
     .border-bar.right  { top: -100px; right: 0; width: var(--border-width); height: calc(100vh + 200px); }
+
+    /* ─── COLȚURI ROTUNJITE ALE CADRULUI ─── */
+    .frame-corner {
+      position       : fixed;
+      width          : var(--corner-r);
+      height         : var(--corner-r);
+      z-index        : 100;
+      pointer-events : none;
+    }
+    .frame-corner.tl {
+      top: var(--top-bar-h); left: var(--border-width);
+      background: radial-gradient(circle at 100% 100%, transparent calc(var(--corner-r) - .5px), var(--egg-shell) var(--corner-r));
+    }
+    .frame-corner.tr {
+      top: var(--top-bar-h); right: var(--border-width);
+      background: radial-gradient(circle at 0 100%, transparent calc(var(--corner-r) - .5px), var(--egg-shell) var(--corner-r));
+    }
+    .frame-corner.bl {
+      bottom: var(--border-width); left: var(--border-width);
+      background: radial-gradient(circle at 100% 0, transparent calc(var(--corner-r) - .5px), var(--egg-shell) var(--corner-r));
+    }
+    .frame-corner.br {
+      bottom: var(--border-width); right: var(--border-width);
+      background: radial-gradient(circle at 0 0, transparent calc(var(--corner-r) - .5px), var(--egg-shell) var(--corner-r));
+    }
 
     /* ─── LANG SWITCHER ─── */
     .lang-switcher {
@@ -136,6 +162,8 @@
     nav a .nav-roman { display: none; }
 
     @media (max-width: 540px) {
+
+    :root { --corner-r: 8px; }
 
       .lang-btn { font-size: .7rem; padding: .35rem calc(var(--border-width) + .4rem) .35rem .6rem; }
 
@@ -298,10 +326,13 @@
       font-family             : "Anton", sans-serif;
       font-size               : clamp(2.5rem, 8vw, 6rem);
       font-weight             : 400;
-      line-height             : .9;
+      line-height             : 1.1;
+      padding        : .2em 0 .15em;/* era .9 */
       text-align              : center;
-      margin-bottom           : 2rem;
+      margin-bottom           : 1.5rem;     /* era 2rem, compensează line-height-ul mai mare */
+      padding-bottom          : 1.25rem;       /* spațiu pentru cozile literelor */
       -webkit-background-clip : text;
+      background-clip         : text;
       -webkit-text-fill-color : transparent;
       background-size         : 45vw auto;
       background-repeat       : repeat-x;
@@ -750,6 +781,16 @@
   <div class="border-bar bottom"></div>
   <div class="border-bar left"></div>
   <div class="border-bar right"></div>
+
+  <div class="border-bar top"></div>
+  <div class="border-bar bottom"></div>
+  <div class="border-bar left"></div>
+  <div class="border-bar right"></div>
+
+  <div class="frame-corner tl"></div>
+  <div class="frame-corner tr"></div>
+  <div class="frame-corner bl"></div>
+  <div class="frame-corner br"></div>
 
   <!-- ─── LANG SWITCHER ─── -->
   <div class="lang-switcher">
