@@ -118,13 +118,12 @@
     }
 
     .lang-btn:focus, .lang-btn:focus-visible { outline: none; }
-    .lang-btn:hover { background: var(--egg-shell); }
 
     /* arată doar butonul pentru limba opusă */
     body.lang-ro #btn-ro { display: none; }
     body.lang-en #btn-en { display: none; }
 
-    /* ─── NAVIGAȚIE ─── */
+    /* ─── NAVIGAȚIE (taburi bej care "atârnă" din bordura de sus) ─── */
     nav {
       position        : fixed;
       top             : var(--top-bar-h);
@@ -132,34 +131,37 @@
       right           : var(--border-width);
       z-index         : 99;
       display         : flex;
-      background      : rgba(26, 26, 46, .85);
-      backdrop-filter : blur(8px);
+      gap             : 0;
+      padding         : 0;
+      background      : transparent;
+      pointer-events  : none;            /* spațiile dintre taburi nu blochează click-urile */
     }
 
     nav a {
-      flex           : 1;
+      flex           : 1.3 1 0;
+      min-width      : 0;
       display        : block;
-      padding        : .7rem 0 .5rem;
+      padding        : .7rem .2rem .6rem;
       text-align     : center;
       text-transform : uppercase;
       letter-spacing : 3px;
+      font-family    : "Anton", sans-serif;
       font-size      : .8rem;
-      color          : var(--egg-shell);
+      color          : var(--purple-brown);
+      background     : var(--egg-shell);
+      border-radius  : 0;
+      border-right   : 1px solid rgba(35,31,32,.15);
+      outline        : none;
+      -webkit-tap-highlight-color : transparent;
       transition     : background .3s, color .3s;
-      border-right   : 1px solid rgba(232,228,210,.15);
+      pointer-events : auto;
     }
-    nav a:last-child { border-right: none; }
-    /* Acasă, Echipa și FAQ: aceeași lățime (mai îngustă); restul primesc mai mult loc */
-    nav a { flex: 1.3 1 0; min-width: 0; padding-left: .2rem; padding-right: .2rem; }
     nav a[href="#acasa"], nav a[href="#echipa"], nav a[href="#faq"] { flex: 1 1 0; }
-    nav a:hover { background: rgba(226,105,97,.25); }
-    nav a.active { background: var(--dark-peach); color: var(--purple-brown); }
+    nav a:first-child { border-radius: 0 0 0 12px; }
+    nav a:last-child  { border-radius: 0 0 12px 0; border-right: none; }
+    nav a:hover  { background: #f1eedf; }
+    nav a.active { background: var(--dark-peach); color: var(--purple-brown); border-right-color: transparent; }
 
-    nav a[href="#acasa"].active { background: var(--egg-shell); color: var(--purple-brown); }
-    nav a[href="#faq"].active { background: var(--egg-shell); color: var(--purple-brown); }
-
-    nav a .nav-full  { display: inline; }
-    nav a .nav-roman { display: none; }
 
     @media (max-width: 540px) {
 
@@ -168,17 +170,16 @@
       .lang-btn { font-size: .7rem; padding: .35rem calc(var(--border-width) + .4rem) .35rem .6rem; }
 
       nav a {
-        letter-spacing : 0;
-        font-size      : .8rem;
+          font-size      : .8rem;
         font-family    : "Anton", sans-serif;
         font-weight    : 400;
         padding        : .75rem .1rem;
       }
-      nav a .nav-full  { display: none; }
-      nav a .nav-roman { display: inline; }
 
       /* mobil: Acasă primește mai mult loc, Echipa și FAQ mai puțin */
       nav a { white-space: nowrap; }
+      nav a:first-child { border-radius: 0 0 0 9px; }
+      nav a:last-child  { border-radius: 0 0 9px 0; }
       nav a[href="#acasa"]      { flex: 1.25 1 0; }
       nav a[href="#form"]       { flex: 1.35 1 0; }
       nav a[href="#program"]    { flex: 1.2  1 0; }
@@ -225,38 +226,24 @@
 
     #form .dots:before    { left: 10%; }
     #form .dots:after     { right: 10%; }
-    #form .dots:before, #form .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     #program .dots:before  { left: 8%; }
     #program .dots:after   { right: 8%; }
-    #program .dots:before, #program .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     #echipa .dots:before  { left: 12%; }
     #echipa .dots:after   { right: 12%; }
-    #echipa .dots:before, #echipa .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     #workshopuri .dots:before  { left: 14%; }
     #workshopuri .dots:after   { right: 14%; }
-    #workshopuri .dots:before, #workshopuri .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     #faq .dots:before  { left: 9%; }
     #faq .dots:after   { right: 9%; }
-    #faq .dots:before, #faq .dots:after { background-image: linear-gradient(var(--dark-peach) 20%, transparent 0); }
 
     @keyframes movebg {
       from { transform: translate3d(0,0,0); }
       to   { transform: translate3d(0, var(--dots-gap), 0); }
     }
 
-    @keyframes dropup-nudge {
-      0%   { transform: translateY(0); }
-      30%  { transform: translateY(-6px); }
-      60%  { transform: translateY(2px); }
-      100% { transform: translateY(0); }
-    }
-    .dropup-trigger.nudge {
-      animation: dropup-nudge .5s ease;
-    }
 
     /* ─── ACASA SLIDES ─── */
     #acasa-inner {
@@ -264,22 +251,7 @@
       inset    : 0;
       pointer-events: none;
     }
-    #acasa-inner .dots:before { left: 18%; }
-    #acasa-inner .dots:after  { left: 82%; }
-    #acasa-inner .dots:before,
-    #acasa-inner .dots:after  {
-      content          : "";
-      position         : absolute;
-      top              : 0;
-      bottom           : 0;
-      width            : 2px;
-      opacity          : .35;
-      pointer-events   : none;
-      background-image : linear-gradient(var(--dark-peach) 20%, transparent 0);
-      background-size  : 100% var(--dots-gap);
-      animation        : movebg .25s linear infinite;
-    }
-    #acasa-inner .dots:after { animation-direction: reverse; }
+    #acasa .dots:before, #acasa .dots:after { width: 2px; }
 
     .acasa-slide {
       position       : absolute;
@@ -306,20 +278,10 @@
         padding        : calc(var(--top-bar-h) + var(--nav-h) + 1rem) 1.5rem calc(var(--border-width) + 3rem);
       }
       #slide2 .section-content { padding: 0; }
-      #slide2 .hero-title { font-size: clamp(2rem, 12vw, 3rem); margin-bottom: 1rem; }
       #slide2 h2 { font-size: 1rem; margin-bottom: 1rem; }
       #slide2 .section-content p { font-size: .95rem; line-height: 1.6; margin-bottom: .9rem; }
     }
 
-    .slide-hint {
-      margin-top     : 1.5rem;
-      font-size      : .85rem;
-      opacity        : .55;
-      letter-spacing : 2px;
-      text-transform : uppercase;
-      animation      : bounce-down .8s ease-in-out infinite alternate;
-      display        : inline-block;
-    }
 
     /* ─── TITLU HERO ─── */
     .hero-title {
@@ -330,19 +292,13 @@
       padding                 : .2em 0 .15em;
       margin-bottom           : 1.25rem;
       text-align              : center;
-      -webkit-background-clip : text;
-      background-clip         : text;
-      -webkit-text-fill-color : transparent;
-      background-size         : 45vw auto;
-      background-repeat       : repeat-x;
     }
 
-    #acasa .hero-title, #slide2 .hero-title { background-color: var(--purple-brown); }
-    #form .hero-title         { background-color: var(--dark-peach); }
-    #program .hero-title    { background-color: var(--purple-brown); }
-    #echipa .hero-title      { background-color: var(--purple-brown); }
-    #workshopuri .hero-title { background-color: var(--dark-peach); }
-    #faq .hero-title         { background-color: var(--purple-brown); }
+    #form .hero-title         { color: var(--dark-peach); }
+    #program .hero-title    { color: var(--purple-brown); }
+    #echipa .hero-title      { color: var(--purple-brown); }
+    #workshopuri .hero-title { color: var(--dark-peach); }
+    #faq .hero-title         { color: var(--purple-brown); }
 
     /* ─── CONȚINUT ─── */
     .section-content {
@@ -379,11 +335,6 @@
       border-left : 4px solid var(--dark-peach);
     }
 
-    #echipa .project-card { border-left-color: var(--dark-peach); }
-    #echipa .project-card h2, #echipa .project-card h3 { color: var(--egg-shell); }
-    #echipa .dropup-menu { border-left-color: var(--dark-peach); }
-    #echipa .dropup-arrow { color: var(--dark-peach); }
-    #workshopuri .project-card { border-left-color: var(--dark-peach); }
 
     .project-card h3 {
       font-family   : "Anton", sans-serif;
@@ -441,52 +392,8 @@
       position      : relative;
     }
 
-    .dropup-arrow {
-      position  : absolute;
-      top       : 0;
-      right     : 0;
-      font-size : 1.2rem;
-      transition: transform .3s ease;
-      color     : var(--dark-peach);
-    }
-    .dropup.open .dropup-arrow { transform: rotate(180deg); }
 
-    .dropup-menu {
-      position   : absolute;
-      bottom     : 100%;
-      left       : 0;
-      right      : 0;
-      max-height : 0;
-      overflow   : hidden;
-      transition : max-height .35s ease, opacity .35s ease;
-      opacity    : 0;
-      background : var(--purple-brown);
-      border-left: 4px solid var(--dark-peach);
-      padding    : 0 1.5rem;
-    }
-    .dropup.open .dropup-menu {
-      max-height : 300px;
-      overflow-y : auto;
-      opacity    : 1;
-      padding    : .75rem 1.5rem;
-    }
-
-    .dropup-menu ul { list-style: none; margin-top: .75rem; border-top: 1px solid rgba(232,228,210,.2); padding-top: .75rem; }
-
-    .dropup-menu ul li {
-      font-size    : .85rem;
-      opacity      : .8;
-      padding      : .3rem 0;
-      border-bottom: 1px solid rgba(232,228,210,.1);
-      color        : var(--egg-shell);
-      cursor       : pointer;
-      transition   : opacity .2s, padding-left .2s;
-    }
-    .dropup-menu ul li:last-child { border-bottom: none; }
-    .dropup-menu ul li:hover { opacity: 1 !important; padding-left: .4rem; color: var(--turquoise); }
-
-    #workshopuri .dropup-arrow { color: var(--dark-peach); }
-    #workshopuri .dropup-menu  { border-left-color: var(--dark-peach); }
+    .dropup-menu { display: none; }  /* sursa de date pt. fereastra de listă */
 
     /* ─── FAQ ─── */
     .faq-list {
@@ -542,7 +449,6 @@
       transition : max-height .35s ease;
     }
     .faq-a-inner {
-      padding     : 0 1.5rem 1.25rem;
       font-size   : .98rem;
       line-height : 1.7;
       opacity     : .85;
@@ -633,7 +539,6 @@
       text-align     : right;
     }
 
-    .popup-box.scrolled-to-end .popup-scroll-hint { opacity: 0; }
 
     /* ─── LIST OVERLAY (fereastra float cu toate itemurile) ─── */
     .list-overlay {
@@ -659,7 +564,6 @@
       max-height  : 80vh;
       overflow-y  : auto;
       border-radius : 16px;
-      overflow      : hidden;
     }
 
     @media (max-width: 600px) {
@@ -734,7 +638,6 @@
     .slide-dot.active {
       opacity   : 1;
       transform : scale(1.4);
-      animation : none;
     }
     .slide-dot:not(.active) {
       animation: dotAttract 2s ease-in-out infinite;
@@ -758,20 +661,7 @@
     body.lang-ro [data-lang="ro"]:not(span):not(a) { display: revert; }
     body.lang-en [data-lang="en"]:not(span):not(a) { display: revert; }
 
-    .static-menu {
-      position    : static !important;
-      max-height  : none !important;
-      overflow    : visible !important;
-      opacity     : 1 !important;
-      padding     : .5rem 1.5rem !important;
-      background  : var(--purple-brown);
-      border-left : 4px solid var(--dark-peach);
-    }
 
-    .team-card {
-      padding     : 0 !important;
-      border-left : none !important;
-    }
 
     .person-card { cursor: pointer; }
 
@@ -787,13 +677,12 @@
       box-shadow    : inset 4px 0 0 var(--dark-peach);
     }
     .project-card { padding-left: 1.75rem; }
-    .static-menu, .team-card { box-shadow: none; }
     @media (max-width: 600px) {
       .popup-box, .list-box { border-radius: 12px; }
     }
   </style>
 </head>
-<body class="lang-ro <!--warn-open-->"> /*doar wan-open*/
+<body class="lang-ro">
 
   <div class="border-bar top"></div>
   <div class="border-bar bottom"></div>
@@ -819,27 +708,22 @@
     <a href="#acasa">
       <span class="nav-full" data-lang="ro">Acasă</span>
       <span class="nav-full" data-lang="en">Home</span>
-<!--      <span class="nav-roman">I</span>-->
     </a>
     <a href="#form">
       <span class="nav-full" data-lang="ro">Înscrieri</span>
       <span class="nav-full" data-lang="en">Register</span>
-<!--      <span class="nav-roman">II</span>-->
     </a>
     <a href="#program">
       <span class="nav-full" data-lang="ro">Program</span>
-      <span class="nav-full" data-lang="en">Program</span>
-<!--      <span class="nav-roman">III</span>-->
+      <span class="nav-full" data-lang="en">Schedule</span>
     </a>
     <a href="#echipa">
       <span class="nav-full" data-lang="ro">Echipa</span>
       <span class="nav-full" data-lang="en">Team</span>
-<!--      <span class="nav-roman">IV</span>-->
     </a>
     <a href="#workshopuri">
       <span class="nav-full" data-lang="ro">Ateliere</span>
-      <span class="nav-full" data-lang="en">Wrkshops</span>
-<!--      <span class="nav-roman">V</span>-->
+      <span class="nav-full" data-lang="en">Workshops</span>
     </a>
     <a href="#faq">
       <span class="nav-full" data-lang="ro">FAQ</span>
@@ -868,9 +752,9 @@
             style="max-height:calc(88vh - var(--top-bar-h)*2 - var(--nav-h)); max-width:min(90vw, calc(100vw - var(--border-width)*2 - 4rem)); width:auto; height:auto; display:block; margin:0 auto;">
         </picture>
         <br>
-        <h2 data-lang="ro" style="margin-bottom:1.5rem;" data-lang="ro">Locatia: Universitatea de Vest din Timișoara</h2>
+        <h2 data-lang="ro" style="margin-bottom:1.5rem;">Locația: Universitatea de Vest din Timișoara</h2>
 
-        <h2 data-lang="en" style="margin-bottom:1.5rem;" data-lang="ro">Location: West University of Timișoara</h2>
+        <h2 data-lang="en" style="margin-bottom:1.5rem;">Location: West University of Timișoara</h2>
 
       </div>
     </div>
@@ -891,9 +775,6 @@
        <p data-lang="ro"> Vă invităm să reflectăm împreună: cum rămânem noi înșine păstrând legăturile, și cum onorăm rădăcinile fără să ne pierdem pe noi?</p>
        <p data-lang="en"> We invite you to reflect together: how do we remain ourselves while keeping our bonds, and how do we honour our roots without losing ourselves?</p>
       </div>
-      <a href="#form" style="position:absolute; bottom:calc(var(--border-width) + 1.5rem); left:50%; transform:translateX(-50%); opacity:.5; animation:bounce-down .8s ease-in-out infinite alternate; color:var(--purple-brown);">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:28px;height:28px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </a>
     </div>
 
     <a href="#form" style="position:absolute; bottom:calc(var(--border-width) + 1.5rem); left:50%; transform:translateX(-50%); opacity:.5; animation:bounce-down .8s ease-in-out infinite alternate; color:var(--purple-brown);">
@@ -914,7 +795,7 @@
       <p data-lang="ro">Prin workshop-uri experiențiale și prezentări aplicate, vom explora împreună cum se nasc conexiunile, cum apar rupturile și cum putem construi comunități mai conștiente, mai flexibile și mai umane, în care apartenența nu cere pierdere de sine, ci susține creșterea, claritatea, păstrarea propriei minți și a autenticității personale. <strong>Pentru a face parte din această experiență unică, înscrierea este deschisă pentru toți cei care doresc să contribuie la construirea unui spațiu viu, în care nu doar vorbim despre comunități, ci le și trăim – cu tensiunile, întrebările și resursele lor.</strong></p>
       <p data-lang="en">Through experiential workshops and applied presentations, we will explore together how connections are born, how ruptures arise, and how we can build more conscious, flexible and humane communities — where belonging does not require the loss of self, but supports growth, clarity and personal authenticity. <strong>To be part of this unique experience, registration is open to all who wish to contribute to building a living space where we don't just talk about communities, but live them — with their tensions, questions and resources.</strong></p>
 
-      <p data-lang="ro">Completează formularul de înregistrare cu datele tale urmând ca mai apoi să primești un mail de confirmare în cel mult 24 de ore.</p>
+      <p data-lang="ro">Completează formularul de înregistrare și vei primi un mail de confirmare în cel mult 24 de ore.</p>
       <p data-lang="en">Fill in the registration form and you will receive a confirmation email within 24 hours.</p>
 
       <h2 style="margin-top:1.5rem;">
@@ -946,11 +827,11 @@
       <h1 class="hero-title" data-lang="ro">Program</h1>
       <h1 class="hero-title" data-lang="en">Schedule</h1>
 
-      <p data-lang="ro">O experiență transformațională de patru zile pline de inspirație profundă, atent orchestrată și proiectată cu maximă grijă  având ca scop principal maximizarea impactului procesului de învățare continuă, stimularea creativității colective și construirea unor conexiuni umane puternice, autentice și de lungă durată între toți participanții prezenți.</p>
-      <p data-lang="en">A four-day transformational experience full of deep inspiration, carefully orchestrated and designed with the utmost care, with the main goal of maximizing the impact of the continuous learning process, stimulating collective creativity and building strong, authentic and long-lasting human connections between all participants present.</p>
+      <p data-lang="ro">O experiență transformațională de patru zile pline de inspirație profundă, atent orchestrată și proiectată cu grijă  având ca scop principal maximizarea impactului procesului de învățare continuă, stimularea creativității colective și construirea unor conexiuni umane puternice, autentice de lungă durată între toți participanții prezenți.</p>
+      <p data-lang="en">A four-day transformational experience full of deep inspiration, carefully orchestrated and designed with the utmost care, with the goal of maximizing the impact of the continuous learning process, stimulating collective creativity and building strong, authentic and long-lasting human connections between all participants present.</p>
 
       <p data-lang="ro">Locația evenimentelor (etaj/ sală/ locație petrecere) se poate vizualiza prin click pe itemii din listă.</p>
-      <p data-lang="en">The location of the events (floor/room/party location) can be viewed by clicking on the items in the list.</p>
+      <p data-lang="en">The location of the events (floor/room/party location) can be viewed by clicking the items in the list.</p>
 
       <br>
       <div class="projects-grid">
@@ -965,37 +846,32 @@
           </div>
           <div class="dropup-menu">
             <ul>
-              <li data-title-ro="Steff Oates (TSTA-P) si Diana Deaconu (CTA-P) " data-title-en="Steff Oates (TSTA-P) and Diana Deaconu (CTA-P)"
+              <li data-title-ro="Steff Oates (TSTA-P) și Diana Deaconu (CTA-P) " data-title-en="Steff Oates (TSTA-P) and Diana Deaconu (CTA-P)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">09:30–11:00 — Minți în comunitate: Pierdute și Regăsite</span>
-                <span data-lang="en">10:00–11:00 — Minds in community: loss and recovery</span>
+                <span data-lang="en">09:30–11:00 — Minds in community: loss and recovery</span>
               </li>
-              <li data-title-ro="Pauza" data-title-en="Break"
+              <li data-title-ro="Pauză" data-title-en="Break"
                   data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">11:00–11:30 — Pauză de cafea </span>
+                <span data-lang="ro">11:00–11:30 — Pauză de cafea</span>
                 <span data-lang="en">11:00–11:30 — Coffee break</span>
               </li>
-              <li data-title-ro="Steff Oates (TSTA-P) si Diana Deaconu (CTA-P)" data-title-en="Steff Oates (TSTA-P) and Diana Deaconu (CTA-P)"
+              <li data-title-ro="Steff Oates (TSTA-P) și Diana Deaconu (CTA-P)" data-title-en="Steff Oates (TSTA-P) and Diana Deaconu (CTA-P)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">11:30–13:30 —  Minți în comunitate: Pierdute și Regăsite</span>
                 <span data-lang="en">11:30–13:30 — Minds in community: loss and recovery</span>
               </li>
-<!--              <li data-title-ro="Pauză de masă" data-title-en="Lunch break"
-                  data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">13:30–15:00 — Pauză de masă</span>
-                <span data-lang="en">13:30–15:00 — Lunch break</span>
-              </li>-->
-              <li data-title-ro="Steff Oates (TSTA-P) si Diana Deaconu (CTA-P)" data-title-en="Steff Oates (TSTA-P) and Diana Deaconu (CTA-P)"
+              <li data-title-ro="Steff Oates (TSTA-P) și Diana Deaconu (CTA-P)" data-title-en="Steff Oates (TSTA-P) and Diana Deaconu (CTA-P)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
-                <span data-lang="ro">15:00–16:30 — Minți în comunitate: Pierdute și Regăsite </span>
+                <span data-lang="ro">15:00–16:30 — Minți în comunitate: Pierdute și Regăsite</span>
                 <span data-lang="en">15:00–16:30 — Minds in community: loss and recovery</span>
               </li>
-              <li data-title-ro="Pauza" data-title-en="Break"
+              <li data-title-ro="Pauză" data-title-en="Break"
                   data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">16:30–17:00 — Pauză de cafea </span>
+                <span data-lang="ro">16:30–17:00 — Pauză de cafea</span>
                 <span data-lang="en">16:30–17:00 — Coffee break</span>
               </li>
-              <li data-title-ro="Steff Oates (TSTA-P) si Diana Deaconu (CTA-P)" data-title-en="Steff Oates (TSTA-P) and Diana Deaconu (CTA-P)"
+              <li data-title-ro="Steff Oates (TSTA-P) și Diana Deaconu (CTA-P)" data-title-en="Steff Oates (TSTA-P) and Diana Deaconu (CTA-P)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">17:00–18:00 — Minți în comunitate: Pierdute și Regăsite</span>
                 <span data-lang="en">17:00–18:00 — Minds in community: loss and recovery</span>
@@ -1014,7 +890,7 @@
           </div>
           <div class="dropup-menu">
             <ul>
-              <li data-title-ro="Eugen Hriscu (CTA-P) si Anca David (PTSTA-P)" data-title-en="Eugen Hriscu (CTA-P) and Anca David (PTSTA-P)"
+              <li data-title-ro="Eugen Hriscu (CTA-P) și Anca David (PTSTA-P)" data-title-en="Eugen Hriscu (CTA-P) and Anca David (PTSTA-P)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">08:00–09:00 — Atelier de înviorare a minții</span>
                 <span data-lang="en">08:00–09:00 — Social Dreaming</span>
@@ -1022,7 +898,7 @@
               <li data-title-ro="Înregistrare" data-title-en="Registration"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">08:30–09:00 — Înregistrare participanți</span>
-                <span data-lang="en">08:30–09:00 — Participants arrival, registration</span>
+                <span data-lang="en">08:30–09:00 — Arrival, registration</span>
               </li>
               <li data-title-ro="Diana Deaconu (CTA-P) | Anca David (PTSTA-P)" data-title-en="Diana Deaconu (CTA-P) |
               Anca David (PTSTA-P)"
@@ -1032,23 +908,23 @@
               </li>
               <li data-title-ro="Pauză" data-title-en="Break"
                   data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">09:45–10:00 — Pauză </span>
+                <span data-lang="ro">09:45–10:00 — Pauză</span>
                 <span data-lang="en">09:45–10:00 — Break</span>
               </li>
               <li data-title-ro="Traineri" data-title-en="Trainers"
                   data-desc-ro="
-                  🚩 <i>Isa Delanoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</i> - Apartenențe multiple: gestionarea identităților și a diferențelor coexistente în calitate de profesioniști I
+                  🚩 <i>Isa Delannoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</i> - Apartenențe multiple: gestionarea identităților și a diferențelor coexistente în calitate de profesioniști I
                   👉 <b>etaj 3, sala 306</b>
                   🚩 <i>Cristina Petrescu (PTSTA-P)</i>: Și adulții au nevoie de povești: Preferințele formatorilor privind subiectele și rolul narațiunii în a da sens noilor experiențe de viață
                   👉 <b>etaj 3, sala 305</b>"
                   data-desc-en="
-                  🚩<i>Isa Delanoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</i> - Multiple belongings: navigating co-existing identities and differences as professionals I
+                  🚩<i>Isa Delannoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</i> - Multiple belongings: navigating co-existing identities and differences as professionals I
                   👉  <b>3 floor,  306 room</b>
                   🚩<i>Cristina Petrescu (PTSTA-P)</i> - Adults Need Stories Too: Trainers' Preferences Regarding Topics and the Role of Narrative in Making Sense of New Life Experiences
                   👉  <b>3 floor,  305 room</b>">
 
-                <span data-lang="ro">10:00–11:30 — Ateliere </span>
-                <span data-lang="en">10:00–11:30 — Workshop (show here)</span>
+                <span data-lang="ro">10:00–11:30 — Ateliere</span>
+                <span data-lang="en">10:00–11:30 — Workshops</span>
               </li>
 
               <li data-title-ro="Pauză de cafea" data-title-en="Coffee break"
@@ -1059,70 +935,64 @@
 
               <li data-title-ro="Traineri" data-title-en="Trainers"
                   data-desc-ro="
-                  🚩 <i>Isa Delanoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</i> - Apartenențe multiple: gestionarea identităților și a diferențelor coexistente în calitate de profesioniști II
+                  🚩 <i>Isa Delannoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</i> - Apartenențe multiple: gestionarea identităților și a diferențelor coexistente în calitate de profesioniști II
                   👉 <b>etaj 3, sala 306</b>
                   🚩 <i>Alina Pavel(PTSTA-P)</i>- Cui îi sunt loial? Apartenența versus diferențiere:o perspectivă AT asupra relației părinte-adolescent
                   👉 <b>etaj 2, sala 205</b>
                   🚩 <i>Andreea Coicici (Ardelean)</i> - A fi și a aparține între mosteniri și alegeri. Perspective Schema Therapy și ACT
                   👉 <b>etaj 3, sala 305</b>"
                   data-desc-en="
-                  🚩<i>Isa Delanoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</i> - Multiple belongings: navigating co-existing identities and differences as professionals II
+                  🚩<i>Isa Delannoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</i> - Multiple belongings: navigating co-existing identities and differences as professionals II
                   👉  <b>3 floor,  306 room</b>
                   🚩<i>Alina Pavel</i> - To whom am I loyal? Belonging versus differentiation: a TA perspective on the parent-adolescent relationship.
                   👉  <b>2 floor,  205 room</b>
-                  🚩<i>Andreea Coicici (Ardelean)</i> - To be and belong between inheritances and choices. Insights Therapy and ACT Scheme
+                  🚩<i>Andreea Coicici (Ardelean)</i> - To be and belong between inheritances and choices. Schema Therapy and ACT perspectives
                   👉  <b>3 floor,  305 room</b>">
-                <span data-lang="ro">12:00–13:30 — Ateliere </span>
-                <span data-lang="en">12:00–13:30 — Workshops (click aici)</span>
+                <span data-lang="ro">12:00–13:30 — Ateliere</span>
+                <span data-lang="en">12:00–13:30 — Workshops</span>
               </li>
-<!--              <li data-title-ro="Pauză de masă" data-title-en="Lunch break"
-                  data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">13:30–15:00 — Pauză de masă</span>
-                <span data-lang="en">13:30–15:00 — Lunch break</span>
-              </li>-->
-
               <li data-title-ro="Traineri" data-title-en="Trainers"
                   data-desc-ro='
                   🚩<i>Geta Trautmann/ Adriana Suru</i> - Scenarii relationale și supoziții de bază în dinamica de grup.
                   👉 <b>etaj 2, sala 205</b>
                   🚩<i>Ioana Preda (PTSTA-P)</i>- Misiuni toxice: datoriile nebănuite ale traumei transgeneraționale
                   👉 <b>etaj 3, sala 305</b>
-                  🚩<i>Ioana Cupșa  (TSTA-P)</i> - "Mai întâi a fost un dragon" - experiența apartenenței și înstrăinării în modelarea identității
+                  🚩<i>Ioana Cupșa (TSTA-P)</i> - "Mai întâi a fost un dragon" - experiența apartenenței și înstrăinării în modelarea identității
                   👉 <b>etaj 3, sala 306</b>'
                   data-desc-en='
                   🚩<i>Geta Trautmann/ Adriana Suru</i> - Relational scenarios and basic assumptions in group dynamics.
                   👉 <b>2 floor,  205 room</b>
                   🚩<i>Ioana Preda (PTSTA-P)</i>- Toxic Missions: The Unsuspected Debts of Transgenerational Trauma
                   👉 <b>3 floor,  305 room</b>
-                  🚩<i>Ioana Cupșa  (TSTA-P)</i> - "First, there was a dragon" – the experience of belonging and alienation in the shaping of identity
+                  🚩<i>Ioana Cupșa (TSTA-P)</i> - "First, there was a dragon" – the experience of belonging and alienation in the shaping of identity
                   👉 <b>3 floor,  306 room</b>'>
-                <span data-lang="ro">15:00–17:00 — Ateliere </span>
-                <span data-lang="en">15:00–17:00 — Workshops (click aici)</span>
+                <span data-lang="ro">15:00–17:00 — Ateliere</span>
+                <span data-lang="en">15:00–17:00 — Workshops</span>
               </li>
 
               <li data-title-ro="Examene mock" data-title-en="Mock exams"
                   data-desc-ro="
                   🚩 <i>CTA Delia Vasile</i>
                   👉 <b>etaj 2, sala 205</b>
-                  🚩 <i>TSTA Cristina Petrecu (PTSTA-P)</i>
+                  🚩 <i>TSTA Cristina Petrescu (PTSTA-P)</i>
                   👉 <b>etaj 3, sala 306</b>
                   🚩 <i>TSTA Marina Ionescu (PTSTA-P)</i>
                   👉 <b>etaj 3, sala 305</b>"
                   data-desc-en="
                   🚩 <i>CTA Delia Vasile</i>
-                  👉 <b>2 floor,  unknown 205</b>
-                  🚩 <i>CTA cineva</i>
+                  👉 <b>2 floor,  205 room</b>
+                  🚩 <i>TSTA Cristina Petrescu (PTSTA-P)</i>
                   👉 <b>3 floor,  306 room</b>
                   🚩 <i>TSTA Marina Ionescu (PTSTA-P)</i>
                   👉 <b>3 floor,  305 room</b> ">
-                <span data-lang="ro">17:15–18:30 — Examene mock </span>
-                <span data-lang="en">17:15–18:30 — Mock exams (click aici)</span>
+                <span data-lang="ro">17:15–18:30 — Examene mock</span>
+                <span data-lang="en">17:15–18:30 — Mock exams</span>
               </li>
               <li data-title-ro="Petrecere ARAT" data-title-en="ARAT Party"
                   data-desc-ro='Locația: 👆 <a href="https://www.google.com/maps/search/?api=1&amp;query=Rivi%C3%A8re%20Indoor%2C%20Splaiul%20Spiru%20Haret%20nr.%201%2C%20Timi%C8%99oara" target="_blank" rel="noopener">Rivière Indoor - Splaiul Spiru Haret nr. 1 📍</a>'
                   data-desc-en='Location: 👆 <a href="https://www.google.com/maps/search/?api=1&amp;query=Rivi%C3%A8re%20Indoor%2C%20Splaiul%20Spiru%20Haret%20nr.%201%2C%20Timi%C8%99oara" target="_blank" rel="noopener">Rivière Indoor - Splaiul Spiru Haret nr. 1 📍</a>'>
-                <span data-lang="ro">19:00- Petrecere ARAT</span>
-                <span data-lang="en">19:00- ARAT Party</span>
+                <span data-lang="ro">19:00 — Petrecere ARAT</span>
+                <span data-lang="en">19:00 — ARAT Party</span>
               </li>
             </ul>
           </div>
@@ -1138,7 +1008,7 @@
           </div>
           <div class="dropup-menu">
             <ul>
-              <li data-title-ro="Eugen Hriscu (CTA-P) si Anca David (PTSTA-P)" data-title-en="Eugen Hriscu (CTA-P) and Anca David (PTSTA-P)"
+              <li data-title-ro="Eugen Hriscu (CTA-P) și Anca David (PTSTA-P)" data-title-en="Eugen Hriscu (CTA-P) and Anca David (PTSTA-P)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">08:00–09:15 — Atelier de înviorare a minții</span>
                 <span data-lang="en">08:00–09:15 — Social Dreaming</span>
@@ -1158,14 +1028,14 @@
                   🚩 <i>Liliana Horvath (PTSTA-P)</i> - Comunitatea ca spațiu de vindecare sau de control – Studiu de caz
                   👉 <b>etaj 3, sala 306</b>"
                   data-desc-en="
-                  🚩 <i>Alexandra Gruicin</i> - Working with psychological games in groups – The Again & Again tool
+                  🚩 <i>Alexandra Gruicin/ Anca David (PTSTA-P)</i> - Working with psychological games in groups – The Again & Again tool
                   👉 <b>2 floor,  205 room</b>
                   🚩 <i>Marina Ionescu (PTSTA-P)</i> - Caught Between Worlds: Family Loyalties and the Need to Become Yourself
                   👉 <b>3 floor,  305 room</b>
                   🚩 <i>Liliana Horvath (PTSTA-P)</i> - Community as a healing or control space – Case study
                   👉 <b>3 floor,  306 room</b> ">
-                <span data-lang="ro">09:30–11:00 — Ateliere </span>
-                <span data-lang="en">09:30–11:00 — Workshops (click aici)</span>
+                <span data-lang="ro">09:30–11:00 — Ateliere</span>
+                <span data-lang="en">09:30–11:00 — Workshops</span>
               </li>
 
 
@@ -1179,44 +1049,39 @@
                   data-desc-ro="
                   🚩<i>Nicoleta Gheorghe (TSTA-P)</i> - Procese de diferențiere în cupluri, grupuri și comunități
                   👉 <b>etaj 3, sala 305</b>
-                  🚩<i>Diana Deaconu (CTA-P)/ Traian Bossenmayer (TSTA-O)</i> - Spațiul apartenenței în grupuri și comunități: între diferențiere și loialitateA
+                  🚩<i>Diana Deaconu (CTA-P)/ Traian Bossenmayer (TSTA-O)</i> - Spațiul apartenenței în grupuri și comunități: între diferențiere și loialitate
                   👉 <b>etaj 2, sala 205</b>
                   🚩<i>Danijela Budisa Ubovic (TSTA-P)</i> - Manifestări culturale în grupuri/comunități: o perspectivă a analizei tranzacționale relaționale
                   👉 <b>etaj 3, sala 306</b>"
                   data-desc-en="
                   🚩<i>Nicoleta Gheorghe (TSTA-P)</i> - Differentiation processes in couples, groups, and communities
                   👉 <b>3 floor,  305 room</b>
-                  🚩<i>Diana Deaconu (CTA-P)/ Traian Bossenmayer (TSTA-O)</i> - The space of belonging to groups and communities: between differentiation and loyalty - <b>2 floor,  205 room</b>
+                  🚩<i>Diana Deaconu (CTA-P)/ Traian Bossenmayer (TSTA-O)</i> - The space of belonging to groups and communities: between differentiation and loyalty
+                  👉 <b>2 floor,  205 room</b>
                   🚩<i>Danijela Budisa Ubovic (TSTA-P)</i> - Cultural Enactments in Groups/Communities: A Relational Transactional Analysis Perspective
                   👉 <b>3 floor,  306 room</b>">
-                <span data-lang="ro">11:30–13:30 — Ateliere </span>
-                <span data-lang="en">11:30–13:30 — Workshops (click aici)</span>
+                <span data-lang="ro">11:30–13:30 — Ateliere</span>
+                <span data-lang="en">11:30–13:30 — Workshops</span>
               </li>
-<!--              <li data-title-ro="Pauză de masă" data-title-en="Lunch break"
-                  data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">13:30–15:00 — Pauză de masă</span>
-                <span data-lang="en">13:30–15:00 — Lunch break</span>
-              </li>-->
-
               <li data-title-ro="Traineri" data-title-en="Trainers"
                   data-desc-ro="
                   🚩<i>Alina Rus (TSTA-P)</i> - Dincolo de bariere: diferențe și perspective comune
                   👉 <b>etaj 3, sala 306</b>
-                  🚩<i>Karina Heillegers  (TSTA-P)</i>- Ce se Aude Dincolo de Cuvinte: Puterea Ascultării în Leadershipul Transformațional
+                  🚩<i>Karina Heillegers (TSTA-P)</i>- Ce se Aude Dincolo de Cuvinte: Puterea Ascultării în Leadershipul Transformațional
                   👉 <b>etaj 3, sala 305</b>"
                   data-desc-en="
                   🚩<i>Alina Rus (TSTA-P)</i> - Beyond Barriers: Differences and Shared Perspectives
                   👉 <b>3 floor,  306 room</b>
-                  🚩<i>Karina Heillegers  (TSTA-P)</i>- What Is Heard Beyond Words: The Power of Listening in Transformational Leadership
+                  🚩<i>Karina Heillegers (TSTA-P)</i>- What Is Heard Beyond Words: The Power of Listening in Transformational Leadership
                   👉 <b>3 floor,  305 room</b>">
-                <span data-lang="ro">15:00–17:30 — Ateliere </span>
-                <span data-lang="en">15:00–17:30 — Workshops (click aici)</span>
+                <span data-lang="ro">15:00–17:30 — Ateliere</span>
+                <span data-lang="en">15:00–17:30 — Workshops</span>
               </li>
 
               <li data-title-ro="Închiderea conferinței" data-title-en="Conference closing"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
-                <span data-lang="ro">17:30-18:00 — Închiderea și premiere ARAT</span>
-                <span data-lang="en">17:30-18:00 — Closing and ARAT awards</span>
+                <span data-lang="ro">17:30–18:00 — Închiderea și premiere ARAT</span>
+                <span data-lang="en">17:30–18:00 — Closing and ARAT awards</span>
               </li>
             </ul>
           </div>
@@ -1232,37 +1097,32 @@
           </div>
           <div class="dropup-menu">
             <ul>
-              <li data-title-ro="Alessandra Pierini (TSTA-P)" data-title-en="Alessandra Pierini (TSTA-P)"
+              <li data-title-ro="Alessandra Pierini (TSTA-P/O)" data-title-en="Alessandra Pierini (TSTA-P/O)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
-                <span data-lang="ro">9:30–11:00 — Physis și apartenență: navigarea autonomiei prin diferențe și loialități recursive</span>
-                <span data-lang="en">9:30–11:00 — Physis and Belonging: Navigating Autonomy through Differences and Recursive Loyalties </span>
+                <span data-lang="ro">09:30–11:00 — Physis și apartenență: navigarea autonomiei prin diferențe și loialități recursive</span>
+                <span data-lang="en">09:30–11:00 — Physis and Belonging: Navigating Autonomy through Differences and Recursive Loyalties</span>
               </li>
-              <li data-title-ro="Pauza" data-title-en="Break"
+              <li data-title-ro="Pauză" data-title-en="Break"
                   data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">11:00–11:30 — Pauză de cafea </span>
+                <span data-lang="ro">11:00–11:30 — Pauză de cafea</span>
                 <span data-lang="en">11:00–11:30 — Coffee break</span>
               </li>
-              <li data-title-ro="Alessandra Pierini (TSTA-P)" data-title-en="Alessandra Pierini (TSTA-P)"
+              <li data-title-ro="Alessandra Pierini (TSTA-P/O)" data-title-en="Alessandra Pierini (TSTA-P/O)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">11:30–13:30 — Physis și apartenență: navigarea autonomiei prin diferențe și loialități recursive</span>
-                <span data-lang="en">11:30–13:30 — Physis and Belonging: Navigating Autonomy through Differences and Recursive Loyalties </span>
+                <span data-lang="en">11:30–13:30 — Physis and Belonging: Navigating Autonomy through Differences and Recursive Loyalties</span>
               </li>
-<!--              <li data-title-ro="Pauză de masă" data-title-en="Lunch break"
-                  data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">13:30–15:00 — Pauză de masă</span>
-                <span data-lang="en">13:30–15:00 — Lunch break</span>
-              </li>-->
-              <li data-title-ro="Alessandra Pierini (TSTA-P)" data-title-en="Alessandra Pierini (TSTA-P)"
+              <li data-title-ro="Alessandra Pierini (TSTA-P/O)" data-title-en="Alessandra Pierini (TSTA-P/O)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">15:00–16:30 — Physis și apartenență: navigarea autonomiei prin diferențe și loialități recursive</span>
-                <span data-lang="en">15:00–16:30 — Physis and Belonging: Navigating Autonomy through Differences and Recursive Loyalties </span>
+                <span data-lang="en">15:00–16:30 — Physis and Belonging: Navigating Autonomy through Differences and Recursive Loyalties</span>
               </li>
-              <li data-title-ro="Pauza" data-title-en="Break"
+              <li data-title-ro="Pauză" data-title-en="Break"
                   data-desc-ro="Locația: zona de networking" data-desc-en="Location: networking area">
-                <span data-lang="ro">16:30–17:00 — Pauză de cafea </span>
+                <span data-lang="ro">16:30–17:00 — Pauză de cafea</span>
                 <span data-lang="en">16:30–17:00 — Coffee break</span>
               </li>
-              <li data-title-ro="Alessandra Pierini (TSTA-P)" data-title-en="Alessandra Pierini (TSTA-P)"
+              <li data-title-ro="Alessandra Pierini (TSTA-P/O)" data-title-en="Alessandra Pierini (TSTA-P/O)"
                   data-desc-ro="Locația: Aula Bibliotecii centrale universitare 'Eugen Todoran'" data-desc-en="Location: Aula 'Eugen Todoran'">
                 <span data-lang="ro">17:00–18:00 — Physis și apartenență: navigarea autonomiei prin diferențe și loialități recursive</span>
                 <span data-lang="en">17:00–18:00 — Physis and Belonging: Navigating Autonomy through Differences and Recursive Loyalties</span>
@@ -1314,7 +1174,7 @@
       </div>
 
       <div class="project-card person-card"
-          data-title-ro="Cupsa Alexandra" data-title-en="Cupsa Alexandra"
+          data-title-ro="Cupșa Alexandra" data-title-en="Cupșa Alexandra"
           data-desc-ro=" - Grafică -
           Grafică eveniment: logo și afișe conferință. Îi mulțumim Alexandrei pentru sprijinul valoros cu promovarea și identitatea vizuală a conferinței naționale de AT."
           data-desc-en="- Graphics -
@@ -1364,7 +1224,7 @@
           data-desc-ro="- Logistică Materiale -
           Responsabilă în logistică și suport material. Pregătește și oferă mapele de conferință și ecusoane pentru fiecare participant. Este persoana de bază la check-in."
           data-desc-en="- Materials Logistics -
-          Responsible for logistics and material support. Prepares and provides conference folders and badges for each participant. He is the basic person at check-in.">
+          Responsible for logistics and material support. Prepares and provides conference folders and badges for each participant. She is the key person at check-in.">
 
           <div class="dropup-trigger">
             <h4 data-lang="ro">Gruicin Alexandra</h4>
@@ -1397,9 +1257,9 @@
         data-desc-ro="-Examene Mock-
         Organizează în contextul conferintei de anul acesta simulări de examene de certificare în AT și pregătește participanții pentru rigoarea evaluării oficiale, oferind un exercițiu practic esențial."
         data-desc-en="-Mock Exams-
-        It organizes in the context of this year's conference simulations of certification exams in TA and prepares participants for the rigor of official evaluation, providing an essential practical exercise.">
+        She organizes, in the context of this year's conference simulations of certification exams in TA and prepares participants for the rigor of official evaluation, providing an essential practical exercise.">
         <div class="dropup-trigger">
-          <h4 data-lang="ro">Cupșa Ioana </h4>
+          <h4 data-lang="ro">Cupșa Ioana</h4>
           <h4 data-lang="en">Cupșa Ioana</h4>
           <p data-lang="ro">-detalii-</p>
           <p data-lang="en">details</p>
@@ -1428,7 +1288,7 @@
           data-desc-ro="-Digital-
           Este al 2-lea an în care Mihai ne asigură construirea paginii web a conferinței și ne prilejuiește o experiență facilă de navigare a programului, a informațiilor și a formularelor de înscriere, plată și rezervare a locurilor."
           data-desc-en="-Digital-
-          It is the 2nd year in which Mihai ensures the construction of the conference web page and gives us an easy experience of browsing the program, information and registration, payment and seat reservation forms.">
+          This is the 2nd year in which Mihai builds the conference web page, giving us an easy way to browse the program, information and registration, payment and seat reservation forms.">
 
           <div class="dropup-trigger">
             <h4 data-lang="ro">Martinaș-Gabor Mihai</h4>
@@ -1444,7 +1304,7 @@
           data-desc-ro="-Acreditări & Party-
           Se implică alături de colegii din comisia științifică în acreditarea programului conferinței. Pregătește cele necesare pauzelor de cafea, gustare și relaxare. Se ocupă de planificarea și găzduirea petrecerii ARAT."
           data-desc-en="-Accreditations & Party-
-          She gets involved with colleagues from the scientific commission in the accreditation of the conference program. Prepare the necessary coffee, snack and relaxation breaks. It handles planning and hosting the ARAT party.">
+          She gets involved with colleagues from the scientific commission in the accreditation of the conference program. She prepares the coffee, snack and relaxation breaks and handles planning and hosting the ARAT party.">
 
           <div class="dropup-trigger">
             <h4 data-lang="ro">Rus Alina</h4>
@@ -1461,7 +1321,7 @@
           data-desc-ro="-Marketing & Conținut-
           Reprezentant legal în relațiile cu partenerii și colaboratorii. Membru al echipei de promovare a conferinței și comunicare publică, asigură vizibilitatea evenimentului și calitatea conținuturilor transmise către participanți. Lansează apel pentru publicarea și revizuirea de articole științifice pe tema conferinței."
           data-desc-en="-Marketing & Content-
-          Legal representative in relations with partners and collaborators. Member of the conference promotion and public communication team, ensures the visibility of the event and the quality of the contents sent to the participants. It calls for the publication and review of scientific articles on the conference.">
+          Legal representative in relations with partners and collaborators. Member of the conference promotion and public communication team, ensures the visibility of the event and the quality of the contents sent to the participants. She calls for the publication and review of scientific articles on the conference.">
 
           <div class="dropup-trigger">
             <h4 data-lang="ro">Tiurean Anca</h4>
@@ -1500,7 +1360,7 @@
 
 
         <div class="project-card person-card"
-          data-title-ro="Minți în comunitate: pierdere și regăsire"
+          data-title-ro="Minți în comunitate: Pierdute și Regăsite"
           data-title-en="Minds in community: loss and recovery"
           data-desc-ro="Intenția noastră în acest workshop este aceea de a adresa relația complexă dintre minte și comunitate, precum și provocările pe care le pot întâlni mințile noastre pe măsură ce încep să facă parte din țesătura unei comunități.
 Se vor pierde definitiv și vor ceda în fața experienței opresive sau vor putea fi regăsite, transformate și îmbogățite?
@@ -1538,17 +1398,17 @@ We will include in our work together theoretical presentations, small group disc
               data-title-en="The social matrix of dreams, a tool for accessing and working with the unconscious in groups"
                   data-desc-ro="Atelierul va prezenta teoria procesului de grup dezvoltat de Gordon Lawrence și intitulat „social dreaming” și va oferi participanților 2 sesiuni în 2 zile consecutive de aplicare a acestui proces, cu ancorare în grupurile profesionale din care fac parte, respectiv Asociația Română de Analiză Tranzacțională și, mai larg, comunitatea de psihoterapie din România. „Social dreaming” este un proces de generare spontană de vise personale și asocieri libere pe marginea acestora din care, apoi, printr-un proces de sinteză, se decelează teme comune privind angoasele, speranțele și  starea prezentă ale grupului. Elaborat inițial ca o formă psihodinamică de lucru cu grupurile în cadrul Institutului Tavistock, din Londra, social dreaming a devenit o tehnică utilizată în medii diverse, non-clinice precum corporații, grupuri profesionale sau mediul penitenciar."
                   data-desc-en="The workshop will present the theory of the group process developed by Gordon Lawrence and entitled „social dreaming” and will offer participants 2 sessions in 2 consecutive days of application of this process, with anchoring in the professional groups they belong to, namely the Romanian Association of Transactional Analysis and, more broadly, the psychotherapy community in Romania. „Social dreaming” is a process of spontaneous generation of personal dreams and free associations on their side from which, then, through a process of synthesis, common themes regarding the anxieties, hopes and present state of the group are detected. Originally developed as a psychodynamic form of working with groups at the Tavistock Institute in London, social dreaming has become a technique used in diverse, non-clinical environments such as corporations, professional groups or the prison environment.">
-                <span data-lang="ro">Anca David  (PTSTA-P) / Eugen Hriscu  (CTA-P)</span>
+                <span data-lang="ro">Anca David (PTSTA-P) / Eugen Hriscu (CTA-P)</span>
                 <span data-lang="en">Anca David (PTSTA-P) / Eugen Hriscu (CTA-P)</span>
               </li>
               <li data-title-ro="Apartenențe multiple: gestionarea identităților și a diferențelor coexistente în calitate de profesioniști"
               data-title-en="Multiple belongings: navigating co-existing identities and differences as professionals"
                   data-desc-ro="Atelierul explorează identitățile multiple și suprapuse (expat, părinte, gen, cultură, religie etc.) prin prisma intersecționalității. Bazându-se pe lucrările Isei Delannoy (GSRD) și Mihaela-Leocadia & Valeria Villa, participanții sunt invitați să reflecteze asupra „loialităților invizibile” care influențează apartenența, asupra modului în care navigăm diferențele și asupra impactului identității asupra relațiilor profesionale cu clienții și colegii.
 Atelierul experiențial încurajează dialogul, reflecția și crearea unui spațiu sigur de comunitate, recunoscând legitimitatea tuturor straturilor identitare și importanța umilinței culturale. Se abordează aspecte etice și provocările vulnerabilității generate de aceste teme."
-                  data-desc-en="The purpose of the workshop is to raise participants' awareness of the connection between the topics (stories) preferred by trainers (teachers or students) and their life script, and to support them in discovering the role of narrative in creating new meanings for their life experiences, as well as in changing or strengthening their life script.
-In my professional experience, I have observed that trainers (teachers and students presenting a dissertation) choose their topics based on their major concerns in their profession or personal life. In this way, they construct a narrative, give meaning to new life experiences, and move forward. Sometimes, the narrative is presented as a professional product (essay or thesis), while other times it is shared openly during workshops, lectures, or presentations. Just as children use fairy tales to make sense of new life experiences and to build their life script, adults also need narratives to consolidate their own life scripts or to change them. Human beings need to make sense of their life experiences, and this need lasts a lifetime, which involves writing and rewriting the script of their life stories.">
-                <span data-lang="ro">Isa Delanoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</span>
-                <span data-lang="en">Isa Delanoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</span>
+                  data-desc-en="The workshop explores multiple, overlapping identities (expat, parent, gender, culture, religion, etc.) through the lens of intersectionality. Drawing on the work of Isa Delannoy (GSRD) and Mihaela-Leocadia & Valeria Villa, participants are invited to reflect on the “invisible loyalties” that shape belonging, on how we navigate differences, and on the impact of identity on professional relationships with clients and colleagues.
+The experiential workshop encourages dialogue, reflection and the creation of a safe community space, recognising the legitimacy of every identity layer and the importance of cultural humility. Ethical issues and the challenges of vulnerability generated by these topics are addressed.">
+                <span data-lang="ro">Isa Delannoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</span>
+                <span data-lang="en">Isa Delannoy (CTA-P)/ Mihaela Leocadia Hârțescu (PTSTA-P)</span>
               </li>
 
               <li data-title-ro="Și adulții au nevoie de povești: Preferințele formatorilor privind subiectele și rolul narațiunii în a da sens noilor experiențe de viață"
@@ -1586,8 +1446,8 @@ The workshop is addressed to professionals working with adolescents and their fa
                 <span data-lang="ro">Alina Pavel (PTSTA-P)</span>
                 <span data-lang="en">Alina Pavel (PTSTA-P)</span>
               </li>
-              <li data-title-ro="A FI SI A APARTINE… între moșteniri și alegeri. Perspective Schema Therapy și ACT"
-              data-title-en="To be and belong between inheritances and choices. Insights Therapy and ACT Scheme"
+              <li data-title-ro="A fi și a aparține… între moșteniri și alegeri. Perspective Schema Therapy și ACT"
+              data-title-en="To be and belong between inheritances and choices. Schema Therapy and ACT perspectives"
                   data-desc-ro="Atelierul abordează tensiunea dintre nevoia de apartenență și dreptul la diferențiere, pornind de la conceptul loialităților invizibile. Într-un cadru integrativ Schema Therapy și ACT, participanții parcurg un arc în trei mișcări: identificarea schemelor și a loialităților-capcană, distanțarea defuzională față de regulile moștenite și alegerea conștientă a propriilor valori. Prin exerciții experiențiale — individuale, în diade și de grup — atelierul îmbină explorarea personală cu aplicabilitatea clinică imediată, oferind psihoterapeuților instrumente concrete pentru lucrul cu apartenența și individuarea: a aparține fără pierderea de sine.Ce dobândesc participanții:
 - Un model de înțelegere a loialităților invizibile din perspectiva schemelor timpurii și a modurilor de coping.
 - Tehnici ACT de defuziune și clarificare a valorilor pentru transformarea loialității oarbe în angajament ales.
@@ -1596,8 +1456,8 @@ data-desc-en="The workshop addresses the tension between the need for belonging 
 - A model of understanding invisible loyalties from the perspective of early schemes and coping modes.
 - ACT techniques of defusion and clarification of values for transforming blind loyalty into chosen commitment.
 - Three experiential exercises directly transferable to clinical practice.">
-                <span data-lang="ro">Andreea Coicici (Ardelean) </span>
-                <span data-lang="en">Andreea Coicici (Ardelean) </span>
+                <span data-lang="ro">Andreea Coicici (Ardelean)</span>
+                <span data-lang="en">Andreea Coicici (Ardelean)</span>
               </li>
               <li data-title-ro="Scenarii relationale și supoziții de bază în dinamica de grup."
                     data-title-en="Relational scenarios and basic assumptions in group dynamics."
@@ -1637,8 +1497,8 @@ The workshop will include case studies and applied exercises that facilitate the
                 Pornind de la exemple din practica clinică, dar și din experiențe personale, în acest atelier vom explora experiența apartenenței ca și condiție existențială, a înstrăinării și trădării în construcția scenariului de viață. Workshopul este deschis tuturor persoanelor interesate de explorarea acestei teme."
                   data-desc-en="Seeking to understand belonging and alienation in today's turbulent times can offer us a gateway to intrapsychic and/or interpersonal liberation. Drawing on examples from clinical practice, but also from personal experiences, in this workshop we will explore the experience of belonging as an existential condition, of alienation and betrayal in the construction of the life scenario.
 The workshop is open to all people interested in exploring this topic.">
-                <span data-lang="ro">Ioana Cupșa  (TSTA-P)</span>
-                <span data-lang="en">Ioana Cupșa  (TSTA-P)</span>
+                <span data-lang="ro">Ioana Cupșa (TSTA-P)</span>
+                <span data-lang="en">Ioana Cupșa (TSTA-P)</span>
               </li>
             </ul>
           </div>
@@ -1658,8 +1518,8 @@ The workshop is open to all people interested in exploring this topic.">
               data-title-en="Working with psychological games in groups – The Again & Again tool"
                   data-desc-ro="Numeroase dinamici relaționale și mesaje de scenariu se transmit subtil, de la părinți la copii, din familie către organizații și invers. Aceste influențe dau naștere unor tipare repetitive de interacțiune care, în Analiza Tranzacțională, sunt cunoscute sub numele de jocuri psihologice - secvențe previzibile, cu deznodământ nefavorabil, pe care le repetăm în mod inconștient. Acest atelier propune o abordare aplicată, orientată spre explorarea unui set de jocuri psihologice, precum și a rolului acestora în relațiile individuale, de grup și organizaționale. Vom analiza legătura dintre jocurile psihologice și nevoia psihologică de apartenență, cât și consecințele întreruperii acestor tipare în dinamica relațiilor. Participanții vor avea ocazia să experimenteze cu instrumentul Again&Again! – un set de carduri conceput pentru a susține învățarea experiențială și integrarea practică a tehnicilor de schimbare, fie în lucrul cu clienții, fie în propriul proces de dezvoltare."
                   data-desc-en="Numerous relational dynamics and script messages are subtly transmitted, from parents to children, from the family to organizations and vice versa. These influences give rise to repetitive patterns of interaction which, in Transactional Analysis, are known as psychological games - predictable sequences with unfavorable outcome that we unconsciously repeat. This workshop proposes an applied approach, oriented towards exploring a set of psychological games, as well as their role in individual, group and organizational relationships. We will analyze the connection between psychological games and the psychological need to belong, as well as the consequences of interrupting these patterns in the dynamics of relationships. Participants will have the opportunity to experiment with the tool Again&Again! – a set of cards designed to support experiential learning and the practical integration of change techniques, either in working with customers or in their own development process.">
-                <span data-lang="ro">Alexandra Gruicin </span>
-                <span data-lang="en">Alexandra Gruicin </span>
+                <span data-lang="ro">Alexandra Gruicin</span>
+                <span data-lang="en">Alexandra Gruicin</span>
               </li>
               <li data-title-ro="Prinși între lumi: loialități familiale și nevoia de a deveni tu însuți" data-title-en="Caught Between Worlds: Family Loyalties and the Need to Become Yourself"
                   data-desc-ro="Acest workshop își propune să creeze un spațiu de reflecție și dialog autentic despre felul în care copiii și părinții lor construiesc apartenența, gestionează diferențele și trăiesc loialitățile familiale, adesea invizibile, care influențează relațiile și dezvoltarea emoțională. Din perspectiva analizei tranzacționale, participanții vor explora modul în care mesajele familiale, rolurile asumate și nevoia de a rămâne conectați la sistemul familial modelează comportamentele copiilor și relația părinte–copil.Workshopul va combina exemple practice, exerciții experiențiale și instrumente aplicabile în lucrul cu copiii și familiile, oferind un cadru de înțelegere și intervenție pentru profesioniștii care însoțesc procese de dezvoltare, schimbare și autonomie."
@@ -1689,7 +1549,7 @@ The workshop is open to all people interested in exploring this topic.">
                 <span data-lang="en">Nicoleta Gheorghe (TSTA-P)</span>
               </li>
               <li data-title-ro="Dincolo de bariere: diferențe și perspective comune"
-              data-title-en="Beyond Barriers: Differences and Shared Perspectives2"
+              data-title-en="Beyond Barriers: Differences and Shared Perspectives"
                   data-desc-ro="Ca oameni și ca profesioniști învățăm despre noi, despre ceilalți, în  diferite grupuri și în diferite relații. În relațiile intra/ inter-grupuri pot apărea conflicte, tensiuni, dezechilibre. În acest workshop, vă invit să reflectăm împreună la ceea ce ne desparte și la ceea ce ne apropie într-un conflict de idei. Vă propun să inițiem o călătorie a descoperirii propriilor valori, a elementelor scenariului cultural, îmbinând concepte ale Analizei tranzacționale (credințe de scenariu, Părinte cultural, cadru de referință) cu elemente ale teoriei fundamentelor morale (Haidt, 2012/2025). Workshop-ul își propune facilitarea unei dezbateri, utilizând conceptele abordate cu scopul învățării împreună a modalităților de depășire a barierelor în comunicare prin recadrare morală."
                   data-desc-en="As people and as professionals we learn about ourselves, about others, in different groups and in different relationships. Conflicts, tensions, imbalances may arise in intra/inter-group relations. In this workshop, I invite you to reflect together on what separates us and what brings us closer in a conflict of ideas. I propose that we initiate a journey of discovering our own values, the elements of the cultural scenario, combining concepts of Transactional Analysis (scenario beliefs, Cultural Father, frame of reference) with elements of the theory of moral foundations (Haidt, 2012/2025).The workshop aims to facilitate a debate, using the concepts approached with the aim of learning together ways to overcome communication barriers through moral reframing.">
                 <span data-lang="ro">Alina Rus (TSTA-P)</span>
@@ -1716,8 +1576,8 @@ Sesiunea se bazează, de asemenea, pe conceptul de inconștient social (Hopper) 
                   Scharmer afirmă că majoritatea oamenilor și organizațiilor operează din scenariu: reacționează pe baza experiențelor, obiceiurilor și presupunerilor existente. Pentru un leadership transformational, nu putem rezolva problemele viitorului prin scenariu, adică cu nivelul de conștiință care le-a creat în trecut. În schimb, liderii performanți pot învăța să opereze din ceea ce el numește ”viitorul emergent” , care aduce posibilități noi, inexistente în trecut și în scenariu. Ceea ce facilitează acest proces sunt cele 4 modalități diferite de ascultare și capacitatea noastră de-a simți starea de prezență."
                   data-desc-en="Otto Scharmer is one of the most influential contemporary thinkers in the field of leadership, organizational transformation and systemic change. His best-known contribution is Theory U (2007), a model for leadership and innovation that seeks to answer the question: How can we drive change in situations where the past no longer offers solutions for the future?
                   Scharmer states that most people and organizations operate from the scenario: they react based on existing experiences, habits, and assumptions. For transformational leadership, we cannot solve the problems of the future through the scenario, that is, with the level of consciousness that created them in the past. Instead, performing leaders can learn to operate from what he calls ”the emerging future”, which brings new, non-existent possibilities to the past and the scenario. What facilitates this process are the 4 different ways of listening and our ability to feel the state of presence.">
-                <span data-lang="ro">Karina Heillegers  (TSTA-P)</span>
-                <span data-lang="en">Karina Heillegers  (TSTA-P)</span>
+                <span data-lang="ro">Karina Heillegers (TSTA-P)</span>
+                <span data-lang="en">Karina Heillegers (TSTA-P)</span>
               </li>
 
             </ul>
@@ -1772,17 +1632,6 @@ By integrating systemic research with contemporary TA, this seminar offers insig
 
         <div class="faq-item">
           <button class="faq-q" type="button">
-            <span data-lang="ro">Unde are loc conferința?</span>
-            <span data-lang="en">Where does the conference take place?</span>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner">
-            <div data-lang="ro">La Universitatea de Vest din Timișoara. Sesiunile plenare se țin în Aula Bibliotecii centrale universitare „Eugen Todoran”, iar atelierele în sălile de la etajele 2 și 3.</div>
-            <div data-lang="en">At the West University of Timișoara. Plenary sessions take place in the "Eugen Todoran" Aula of the Central University Library, while the workshops are held in rooms on the 2nd and 3rd floors.</div>
-          </div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q" type="button">
             <span data-lang="ro">Cum mă înscriu?</span>
             <span data-lang="en">How do I register?</span>
           </button>
@@ -1794,19 +1643,8 @@ By integrating systemic research with contemporary TA, this seminar offers insig
 
         <div class="faq-item">
           <button class="faq-q" type="button">
-            <span data-lang="ro">Cât durează conferința?</span>
-            <span data-lang="en">How long is the conference?</span>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner">
-            <div data-lang="ro">Patru zile: vineri (pre-conferință), sâmbătă și duminică (conferința propriu-zisă) și luni (post-conferință). Detaliile fiecărei zile se găsesc în secțiunea <a href="#program">Program</a>.</div>
-            <div data-lang="en">Four days: Friday (pre-conference), Saturday and Sunday (the conference itself) and Monday (post-conference). Details for each day can be found in the <a href="#program">Schedule</a> section.</div>
-          </div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q" type="button">
-            <span data-lang="ro">Unde aflu sala fiecărui atelier?</span>
-            <span data-lang="en">Where do I find the room for each workshop?</span>
+            <span data-lang="ro">Cum aflu sala fiecărui atelier?</span>
+            <span data-lang="en">How do I find the room for each workshop?</span>
           </button>
           <div class="faq-a"><div class="faq-a-inner">
             <div data-lang="ro">În secțiunea Program, deschide ziua dorită și apasă pe intervalul orar al atelierului: vei vedea etajul, sala și lista atelierelor care se desfășoară în paralel.</div>
@@ -1831,8 +1669,8 @@ By integrating systemic research with contemporary TA, this seminar offers insig
             <span data-lang="en">Do I get a certificate or professional credits?</span>
           </button>
           <div class="faq-a"><div class="faq-a-inner">
-            <div data-lang="ro">Participanții primesc diplome și certificate de participare, iar pentru psihologi, activitățile formative ale conferinței sunt recunoscute de Colegiul Psihologilor prin credite profesionale. Se pot obține până la 24 de ore și de credite dacă trainerul este specialist COPSI și/sau PTSTA. Prezența la ateliere este evidențiată de organizatori.</div>
-            <div data-lang="en">Participants receive diplomas and certificates of attendance, and for psychologists the formative activities of the conference are recognised by the College of Psychologists through professional credits. You can earn up to 24 hours and 24 credits if the trainer is a COPSI specialist and/or a PTSTA. Attendance at workshops is tracked by the organisers.</div>
+            <div data-lang="ro">Participanții primesc diplome și certificate de participare, iar pentru psihologi, activitățile formative ale conferinței sunt recunoscute de Colegiul Psihologilor prin credite profesionale. Se pot obține până la 24 de ore și 24 de credite dacă trainerul este specialist COPSI și/sau PTSTA. Prezența la ateliere este evidențiată de organizatori.</div>
+            <div data-lang="en">Participants receive diplomas and certificates of attendance, and for psychologists the formative activities of the conference are recognised by the College of Psychologists through professional credits. You can earn up to 24 hours and credits if the trainer is a COPSI specialist and/or a PTSTA. Attendance at workshops is tracked by the organisers.</div>
           </div></div>
         </div>
 
@@ -1888,25 +1726,18 @@ By integrating systemic research with contemporary TA, this seminar offers insig
 
     function setLang(lang) {
       currentLang = lang;
-      document.body.className = document.body.className.replace(/lang-\w+/, '') + ' lang-' + lang;
+      document.body.classList.remove('lang-ro', 'lang-en');
+      document.body.classList.add('lang-' + lang);
       document.getElementById('btn-ro').classList.toggle('active', lang === 'ro');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
       document.documentElement.lang = lang;
+      /* recalculează înălțimea FAQ la schimbarea limbii */
+      requestAnimationFrame(() => document.querySelectorAll('.faq-item.open .faq-a').forEach(a => a.style.maxHeight = a.scrollHeight + 'px'));
     }
 
     /* ─── Sections / Nav ─── */
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('nav a');
-    const bars     = document.querySelectorAll('.border-bar');
-
-    const borderColors = {
-      acasa       : '#e8e4d2',
-      form         : '#e8e4d2',
-      program    : '#e8e4d2',
-      echipa      : '#e8e4d2',
-      workshopuri : '#e8e4d2',
-      faq         : '#e8e4d2',
-    };
 
     function throttle(fn, limit) {
       let t;
@@ -1929,23 +1760,11 @@ By integrating systemic research with contemporary TA, this seminar offers insig
     window.addEventListener('resize', updateActiveLink);
     updateActiveLink();
 
-    window.addEventListener('load', () => {
-      bars.forEach(b => b.style.transition = 'background .6s');
-    });
-
     /* ─── Reveal ─── */
     const revealObs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-    /* ─── Border color ─── */
-    const borderObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) bars.forEach(b => b.style.background = borderColors[e.target.id] || '#e8e4d2');
-      });
-    }, { threshold: 0.3 });
-    sections.forEach(s => borderObs.observe(s));
 
     /* ─── Popup de detalii ─── */
     const overlay    = document.getElementById('popupOverlay');
@@ -1965,7 +1784,6 @@ By integrating systemic research with contemporary TA, this seminar offers insig
       popupDesc.innerHTML    = getLangDataset(el, 'desc');
       const box = document.querySelector('.popup-box');
       box.scrollTop = 0;
-      box.classList.remove('scrolled-to-end');
       overlay.classList.add('open');
       requestAnimationFrame(() => {
         const label = document.querySelector('.popup-scroll-label');
@@ -2057,12 +1875,6 @@ By integrating systemic research with contemporary TA, this seminar offers insig
     window.addEventListener('resize', () => {
       document.querySelectorAll('.faq-item.open .faq-a').forEach(a => a.style.maxHeight = a.scrollHeight + 'px');
     });
-    /* recalculeaza inaltimea la schimbarea limbii */
-    const _setLang = setLang;
-    setLang = function(l) {
-      _setLang(l);
-      requestAnimationFrame(() => document.querySelectorAll('.faq-item.open .faq-a').forEach(a => a.style.maxHeight = a.scrollHeight + 'px'));
-    };
 
     /* ─── Acasă slides ─── */
     const slide1     = document.getElementById('slide1');
