@@ -113,8 +113,9 @@
     nav a[href="#acasa"], nav a[href="#echipa"], nav a[href="#faq"] { flex: 1 1 0; }
     nav a:hover { background: rgba(226,105,97,.25); }
     nav a.active { background: var(--dark-peach); color: var(--purple-brown); }
+
     nav a[href="#acasa"].active { background: var(--egg-shell); color: var(--purple-brown); }
-    nav a[href="#workshopuri"].active { background: var(--egg-shell); color: var(--purple-brown); }
+    nav a[href="#faq"].active { background: var(--egg-shell); color: var(--purple-brown); }
 
     nav a .nav-full  { display: inline; }
     nav a .nav-roman { display: none; }
@@ -507,60 +508,6 @@
       nav a { letter-spacing: 1px; }
     }
 
-    /* ─── AVERTISMENT ÎNSCRIERE (nu se poate închide decât din buton) ─── */
-    .warn-overlay {
-      display         : flex;
-      position        : fixed;
-      inset           : 0;
-      z-index         : 150;              /* sub lang-switcher (200), peste nav (99) */
-      align-items     : center;
-      justify-content : center;
-      padding         : 1rem;
-      background      : rgba(35,31,32,.85);
-    }
-    .warn-overlay.hidden { display: none; }
-    body.warn-open { overflow: hidden; }
-
-    .warn-box {
-      background  : var(--purple-brown);
-      color       : var(--egg-shell);
-      border-left : 4px solid var(--dark-peach);
-      max-width   : 500px;
-      width       : 90%;
-      padding     : 2rem 2.5rem;
-    }
-    .warn-box h4 {
-      font-family    : "Anton", sans-serif;
-      font-size      : 1.3rem;
-      font-weight    : 400;
-      letter-spacing : 1px;
-      text-transform : uppercase;
-      margin-bottom  : 1rem;
-      color          : var(--turquoise);
-    }
-    .warn-box p { font-size: 1rem; line-height: 1.75; opacity: .85; }
-
-    .warn-btn {
-      display        : block;
-      width          : 100%;
-      margin-top     : 1.5rem;
-      padding        : .9rem 1rem;
-      background     : var(--dark-peach);
-      color          : var(--purple-brown);
-      border         : none;
-      font-family    : "Anton", sans-serif;
-      font-size      : 1.05rem;
-      letter-spacing : 2px;
-      text-transform : uppercase;
-      cursor         : pointer;
-      transition     : background .2s;
-    }
-    .warn-btn:hover, .warn-btn:focus-visible { background: var(--turquoise); outline: none; }
-
-    @media (max-width: 600px) {
-      .warn-box { padding: 1.5rem 1.25rem; width: 95%; }
-    }
-
     /* ─── POPUP MODAL ─── */
     .popup-overlay {
       display        : none;
@@ -779,7 +726,7 @@
     .person-card { cursor: pointer; }
   </style>
 </head>
-<body class="lang-ro warn-open">
+<body class="lang-ro <!--warn-open-->"> /*doar wan-open*/
 
   <div class="border-bar top"></div>
   <div class="border-bar bottom"></div>
@@ -1863,20 +1810,6 @@ By integrating systemic research with contemporary TA, this seminar offers insig
     </div>
   </div>
 
-  <!-- AVERTISMENT ÎNSCRIERE -->
-  <div class="warn-overlay" id="warnOverlay" role="alertdialog" aria-modal="true" aria-labelledby="warnTitle">
-    <div class="warn-box">
-      <h4 id="warnTitle" data-lang="ro">Nu rata ultima reducere!</h4>
-      <h4 data-lang="en">Don't miss the last discount!</h4>
-      <p data-lang="ro">Nu rata ultima reducere activă pentru înscriere. Completează formularul din secțiunea Înscriere ca să o poți folosi.</p>
-      <p data-lang="en">Don't miss the last active registration discount. Fill in the form in the Register section to make use of it.</p>
-      <button class="warn-btn" id="warnBtn" type="button">
-        <span data-lang="ro">Vreau să mă înscriu</span>
-        <span data-lang="en">I want to register</span>
-      </button>
-    </div>
-  </div>
-
   <script>
     /* ─── Language ─── */
     let currentLang = 'ro';
@@ -2033,17 +1966,6 @@ By integrating systemic research with contemporary TA, this seminar offers insig
       if (e.target === listOverlay) listOverlay.classList.remove('open');
     });
 
-    /* ─── Avertisment înscriere: se închide DOAR din buton, apoi duce la Înscriere ─── */
-    const warnOverlay = document.getElementById('warnOverlay');
-    const warnBtn     = document.getElementById('warnBtn');
-    warnBtn.addEventListener('click', () => {
-      warnOverlay.classList.add('hidden');
-      document.body.classList.remove('warn-open');
-      const form = document.getElementById('form');
-      if (form) form.scrollIntoView({ behavior: 'smooth' });
-    });
-    warnBtn.focus();
-
     /* ─── FAQ accordion ─── */
     document.querySelectorAll('.faq-item').forEach(item => {
       const q = item.querySelector('.faq-q');
@@ -2127,3 +2049,4 @@ By integrating systemic research with contemporary TA, this seminar offers insig
 
 </body>
 </html>
+
