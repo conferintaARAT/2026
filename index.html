@@ -680,6 +680,26 @@
     @media (max-width: 600px) {
       .popup-box, .list-box { border-radius: 12px; }
     }
+
+    .map-link {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 0.25em;
+      cursor: pointer;
+      transition: opacity 0.2s ease, text-decoration-thickness 0.2s ease;
+    }
+    .map-link:hover,
+    .map-link:focus-visible {
+      opacity: 0.75;
+      text-decoration-thickness: 2px;
+    }
+    .map-link span[aria-hidden="true"]:last-child {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .map-link:hover span[aria-hidden="true"]:last-child {
+      transform: translate(2px, -2px);
+    }
   </style>
 </head>
 <body class="lang-ro">
@@ -752,9 +772,26 @@
             style="max-height:calc(88vh - var(--top-bar-h)*2 - var(--nav-h)); max-width:min(90vw, calc(100vw - var(--border-width)*2 - 4rem)); width:auto; height:auto; display:block; margin:0 auto;">
         </picture>
         <br>
-        <h2 data-lang="ro" style="margin-bottom:1.5rem;">Locația: Universitatea de Vest din Timișoara</h2>
 
-        <h2 data-lang="en" style="margin-bottom:1.5rem;">Location: West University of Timișoara</h2>
+        <h2 data-lang="ro" style="margin-bottom:1.5rem;">
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Universitatea+de+Vest+din+Timi%C8%99oara"
+             target="_blank" rel="noopener noreferrer"
+             title="Deschide în Google Maps">
+            <span aria-hidden="true">📍</span>
+            Locația: Universitatea de Vest din Timișoara
+            <span aria-hidden="true">↗</span>
+          </a>
+        </h2>
+
+        <h2 data-lang="en" style="margin-bottom:1.5rem;">
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Universitatea+de+Vest+din+Timi%C8%99oara"
+             target="_blank" rel="noopener noreferrer"
+             title="Open in Google Maps">
+            <span aria-hidden="true">📍</span>
+            Location: West University of Timișoara
+            <span aria-hidden="true">↗</span>
+          </a>
+        </h2>
 
       </div>
     </div>
