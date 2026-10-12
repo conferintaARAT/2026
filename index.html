@@ -140,10 +140,10 @@
 
     @media (max-width: 540px) {
 
-    :root { --corner-r: 8px; }
+    .nav-lang { font-size: .65rem; padding: .75rem .4rem; border-radius: 0; gap: 0; letter-spacing: .5px; }
 
       .nav-lang { font-size: .65rem; padding: .75rem .4rem; border-radius: 0; gap: 0; letter-spacing: .5px; }
-      .nav-lang span[aria-hidden="true"] { display: none; }   /* ascunde steagul, rămâne doar RO / EN */
+      /* .nav-lang span[aria-hidden="true"] { display: none; }   /* ascunde steagul, rămâne doar RO / EN */ */
 
       nav a {
           font-size      : .8rem;
@@ -154,10 +154,10 @@
 
       /* mobil: Acasă primește mai mult loc, Echipa și FAQ mai puțin */
       nav a { white-space: nowrap; }
-      nav a[href="#acasa"]      { flex: .8 1 0; }
+      nav a[href="#acasa"]      { flex: .6 1 0; }
       nav a[href="#program"]    { flex: 1  1 0; }
       nav a[href="#echipa"]     { flex: .7  1 0; }
-      nav a[href="#workshopuri"]{ flex: .9  1 0; }
+      nav a[href="#workshopuri"]{ flex: .1  1 0; }
       nav a[href="#faq"]        { flex: .4   1 0; }
       nav a.nav-feedback        { flex: 1    1 0; }
     }
